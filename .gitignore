@@ -1,0 +1,11 @@
+*.map
+*.gba
+*.elf
+build/
+payload/build
+tools/agbcc
+tools/binutils
+*.exe
+*.lz
+*.dump
+.idea

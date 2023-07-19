@@ -1,0 +1,25 @@
+gIntrTable = 0x3000880;
+
+SECTIONS {
+    . = 0x02018000;
+    .text :
+    ALIGN(4)
+    {
+        asm/crt0.o(.text);
+        /*src/all.o(.text);*/
+        asm/all.o(.text);
+    } =0
+
+    .rodata :
+    ALIGN(4)
+    {
+		data/data.o(.data);
+    } =0
+
+    . = 0x02040000; /* Limit EWRAM size */
+
+    /DISCARD/ :
+    {
+        *(*);
+    }
+}

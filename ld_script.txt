@@ -1,0 +1,29 @@
+SECTIONS {
+	. = 0x02000000;
+    .text :
+    ALIGN(4)
+    {
+		asm/crt0.o(.text);
+    } =0
+
+    .rodata :
+    ALIGN(4)
+    {
+		data/payload.o(.rodata);
+    } =0
+
+    . = 0x3000000;
+    iwram (NOLOAD) :
+    ALIGN(4)
+    {
+		arm_LZ77UnCompWRAM_Buffer = .;
+		. += 0x130;
+		arm_LZ77UnCompWRAM_FuncStart = .;
+		. += 0x94;
+		arm_LZ77UnCompWRAM_BufferEnd = .;
+    }
+    /DISCARD/ :
+    {
+        *(*);
+    }
+}

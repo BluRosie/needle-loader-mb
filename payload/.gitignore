@@ -1,0 +1,7 @@
+sound/songs/midi/*.s
+sound/direct_sound_samples/*.bin
+*.[1248]bpp
+*.lz
+*.gbapal
+*.rl
+*.huff
