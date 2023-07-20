@@ -1,3 +1,5 @@
+gGlobalStructure = 0x03000010;
+gUnk_30008D0 = 0x030008D0;
 gIntrTable = 0x3000880;
 
 SECTIONS {
@@ -6,7 +8,7 @@ SECTIONS {
     ALIGN(4)
     {
         asm/crt0.o(.text);
-        /*src/all.o(.text);*/
+        src/all.o(.text);
         asm/all.o(.text);
     } =0
 
