@@ -76,7 +76,7 @@ enum
 
 struct GLOBAL_STRUCTURE {
     u8 pad_000[0x814];
-    u16 unk_814;
+    vu16 unk_814; // thanks jiang
     u16 unk_816;
     u16 unk_818;
     u16 unk_81A;
@@ -88,6 +88,7 @@ struct GLOBAL_STRUCTURE {
     u16 unk_826;
     u16 unk_828;
     u16 unk_82A;
+    u8 pad_82C[0x10];
     u16 unk_83C;
     u16 unk_83E;
     u16 unk_840;

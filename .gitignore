@@ -9,3 +9,4 @@ tools/binutils
 *.lz
 *.dump
 .idea
+payload/payload.bin

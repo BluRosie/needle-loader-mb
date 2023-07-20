@@ -53,9 +53,9 @@ C_OBJS := $(C_SRCS:%.c=$(OBJ_DIR)/%.o)
 DATA_ASM_SRCS := $(wildcard data/*.s)
 DATA_ASM_OBJS := $(DATA_ASM_SRCS:%.s=$(OBJ_DIR)/%.o)
 
-CC1 := tools/agbcc/bin/old_agbcc
+CC1 := tools/agbcc/bin/agbcc
 CPPFLAGS := -I tools/agbcc/include -iquote include -nostdinc -undef
-CFLAGS := -O2 -mthumb-interwork -fhex-asm -Wimplicit -Werror
+CFLAGS := -O3 -g3 -mthumb-interwork -fhex-asm -Wimplicit -Werror
 ASFLAGS := -mcpu=arm7tdmi
 LIBS := -L../../tools/agbcc/lib -lgcc -lc
 

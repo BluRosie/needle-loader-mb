@@ -19,12 +19,14 @@ else
 export PATH := $(TOOLCHAIN)/bin:$(PATH)
 PREFIX := arm-none-eabi-
 OBJCOPY := $(PREFIX)objcopy
+OBJDUMP := $(PREFIX)objdump
 export CC := $(PREFIX)gcc
 export AS := $(PREFIX)as
 endif
 export CPP := $(PREFIX)cpp
 export LD := $(PREFIX)ld
 export OBJCOPY := $(PREFIX)objcopy
+export OBJDUMP := $(PREFIX)objdump
 
 PREPROC := ../tools/preproc/preproc
 SCANINC := ../tools/scaninc/scaninc
@@ -33,11 +35,13 @@ MID := ../tools/mid2agb/mid2agb
 AIF := ../tools/aif2pcm/aif2pcm
 GFX := ../tools/gbagfx/gbagfx
 RSFONT := ../tools/rsfont/rsfont
+PERL := perl
 
 NAME := payload
 ROM := $(NAME).gba
 ROMLZ := $(ROM).lz
 ELF := $(NAME).elf
+SYM = $(ROM:.gba=.sym)
 
 OBJ_DIR := build/$(NAME)
 
@@ -61,7 +65,7 @@ SAMPLE_SUBDIR := sound/direct_sound_samples
 AIF_SRCS := $(wildcard $(SAMPLE_SUBDIR)/*.aif)
 AIF_BINS := $(AIF_SRCS:%.aif=%.bin)
 
-CC1 := ../tools/agbcc/bin/old_agbcc
+CC1 := ../tools/agbcc/bin/agbcc
 CPPFLAGS := -I ../tools/agbcc/include -iquote include -nostdinc -undef
 CFLAGS := -O2 -g -mthumb-interwork -fhex-asm -Wimplicit -Werror
 ASFLAGS := -mcpu=arm7tdmi -I include
@@ -74,25 +78,6 @@ ALL_OBJS := $(ASM_OBJS) $(C_OBJS) $(DATA_ASM_OBJS) $(MID_ASM_OBJS)
 TOOLDIRS := $(filter-out ../tools/agbcc ../tools/binutils,$(wildcard ../tools/*))
 
 infoshell = $(foreach line, $(shell $1 | sed "s/ /__SPACE__/g"), $(info $(subst __SPACE__, ,$(line))))
-
-# Special rules for particular files
-# keeping these just in case they are still there
-$(OBJ_DIR)/src/unk_200E344.o: CFLAGS := -g -mthumb-interwork -fhex-asm -Wimplicit -Werror
-$(OBJ_DIR)/src/siirtc.o:      CC1    := ../tools/agbcc/bin/agbcc
-$(OBJ_DIR)/src/siirtc.o:      CFLAGS := -g -mthumb-interwork -fhex-asm -Wimplicit -Werror
-
-$(OBJ_DIR)/src/agb_flash.o:    CFLAGS := -O -mthumb-interwork -g
-$(OBJ_DIR)/src/agb_flash.o:    CC1    := ../tools/agbcc/bin/agbcc
-$(OBJ_DIR)/src/agb_flash_1m.o: CFLAGS := -O -mthumb-interwork -g
-$(OBJ_DIR)/src/agb_flash_1m.o: CC1    := ../tools/agbcc/bin/agbcc
-$(OBJ_DIR)/src/agb_flash_mx.o: CFLAGS := -O -mthumb-interwork -g
-$(OBJ_DIR)/src/agb_flash_mx.o: CC1    := ../tools/agbcc/bin/agbcc
-$(OBJ_DIR)/src/agb_flash_le.o: CFLAGS := -O -mthumb-interwork -g
-$(OBJ_DIR)/src/agb_flash_le.o: CC1    := ../tools/agbcc/bin/agbcc
-
-$(OBJ_DIR)/src/libpmagb/%.o:   CFLAGS := -O3 -mthumb-interwork -g -fhex-asm -Wimplicit -Werror
-# Temporary
-$(OBJ_DIR)/src/libpmagb/save.o:   CFLAGS := -O2 -mthumb-interwork -g -fhex-asm -Wimplicit -Werror
 
 # Build tools when building the rom
 # Disable dependency scanning for clean/tidy/tools
@@ -120,7 +105,7 @@ ifeq ($(COMPARE),1)
 endif
 
 mostlyclean:
-	$(RM) $(ROMLZ) $(ROM) $(ROM:%.gba=%.elf) $(ALL_OBJS) $(MID_ASM_SRCS) $(AIF_BINS)
+	$(RM) $(ROMLZ) $(ROM) $(ELF) $(SYM) $(ALL_OBJS) $(MID_ASM_SRCS) $(AIF_BINS)
 	find . \( -name "*.rl" -or -name "*.lz" -or -name "*.[1248]bpp" -or -name "*.gbapal" \) -exec $(RM) {} +
 
 clean: mostlyclean
@@ -149,6 +134,7 @@ $(C_OBJS): $(OBJ_DIR)/%.o: %.c $$(c_dep)
 	@echo "CC <flags> -o $@ $<"
 	@$(CPP) $(CPPFLAGS) -o $(OBJ_DIR)/$*.i $<
 	@$(PREPROC) $(OBJ_DIR)/$*.i charmap.txt | $(CC1) $(CFLAGS) -o $(OBJ_DIR)/$*.s
+	#$(CC1) $(CFLAGS) -o $(OBJ_DIR)/$*.s $<
 	@echo -e ".text\n\t.align\t2, 0 @ Don't pad with nop\n" >> $(OBJ_DIR)/$*.s
 	@$(AS) $(ASFLAGS) -o $@ $(OBJ_DIR)/$*.s
 
@@ -170,3 +156,12 @@ $(ROMLZ): $(ROM)
 ### Debug Print ###
 
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
+
+###################
+### Symbol file ###
+###################
+
+symbols: $(SYM)
+
+$(SYM): $(ELF)
+	$(OBJDUMP) -t $< | sort -u | grep -E "^0[2389]" | $(PERL) -p -e 's/^(\w{8}) (\w).{6} \S+\t(\w{8}) (\S+)$$/\1 \2 \3 \4/g' > $@
