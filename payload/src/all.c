@@ -4,6 +4,7 @@
 void sub_2018428();
 void sub_2018F44();
 void sub_2019A84(void *, u32, u32);
+void sub_2019A88(u32);
 void nullsub_2(void);
 
 
@@ -124,3 +125,45 @@ void sub_2018348(u64 *ip, u64 *r8, u8 flag)
     }
     *r8 = *storage;
 }
+
+
+extern u8 a_02019bec[];
+
+s32 sub_20183F0(u32 index)
+{
+    if (index <= 0xFF)
+    {
+        return a_02019bec[index];
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+
+extern u8 a_02019cec[];
+
+s32 sub_201840C(u32 index)
+{
+    if (index <= 0xFF)
+    {
+        return a_02019cec[index];
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+
+//void sub_2018428(void)
+//{
+//    u32 work;
+//    u32 *reg_ptrs = REG_DMA3SAD;
+//
+//    sub_2019A88(0xC0);
+//    work = DMA_DEST_INC;
+//    reg_ptrs[0] = (u32)&work;
+//    reg_ptrs[1] = 0x03000000;
+//}

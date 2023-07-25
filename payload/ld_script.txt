@@ -2,8 +2,10 @@ gGlobalStructure = 0x03000010;
 gUnk_30008D0 = 0x030008D0;
 gIntrTable = 0x3000880;
 
-a_0201adec = 0x0201ADEC;
+a_02019bec = 0x02019BEC;
+a_02019cec = 0x02019CEC;
 a_02019dec = 0x02019DEC;
+a_0201adec = 0x0201ADEC;
 
 SECTIONS {
     . = 0x02018000;
