@@ -108,6 +108,57 @@ struct GLOBAL_STRUCTURE {
 };
 
 
+
+#define DmaSetSrc(dmaNum, src)     \
+{                                                 \
+    vu32 *dmaRegs = (vu32 *)REG_ADDR_DMA##dmaNum; \
+    dmaRegs[0] = (vu32)(src);                     \
+}
+
+#define DmaSet(dmaNum, src, dest, control)        \
+{                                                 \
+    vu32 *dmaRegs = (vu32 *)REG_ADDR_DMA##dmaNum; \
+    dmaRegs[0] = (vu32)(src);                     \
+    dmaRegs[1] = (vu32)(dest);                    \
+    dmaRegs[2] = (vu32)(control);                 \
+    dmaRegs[2];                                   \
+}
+
+#define S_DmaSet(dmaNum, src, dest, control)      \
+{                                                 \
+    dmaRegs = (vu32 *)REG_ADDR_DMA##dmaNum;       \
+    dmaRegs[0] = (vu32)(src);                     \
+    dmaRegs[1] = (vu32)(dest);                    \
+    dmaRegs[2] = (vu32)(control);                 \
+    dmaRegs[2];                                   \
+}
+
+#define S_DMA_FILL(dmaNum, value, dest, size, bit)                                            \
+{                                                                                             \
+    vu32 *dmaRegs;                                                                            \
+    vu##bit tmp = (vu##bit)(value);                                                           \
+    S_DmaSet(dmaNum,                                                                          \
+           &tmp,                                                                              \
+           dest,                                                                              \
+           (DMA_ENABLE | DMA_START_NOW | DMA_##bit##BIT | DMA_SRC_FIXED | DMA_DEST_INC) << 16 \
+         | ((size)/(bit/8)));                                                                 \
+}
+
+#define S_DmaFill16(dmaNum, value, dest, size) S_DMA_FILL(dmaNum, value, dest, size, 16)
+#define S_DmaFill32(dmaNum, value, dest, size) S_DMA_FILL(dmaNum, value, dest, size, 32)
+
+#define DMA_COPY(dmaNum, src, dest, size, bit)                                              \
+    DmaSet(dmaNum,                                                                          \
+           src,                                                                             \
+           dest,                                                                            \
+           (DMA_ENABLE | DMA_START_NOW | DMA_##bit##BIT | DMA_SRC_INC | DMA_DEST_INC) << 16 \
+         | ((size)/(bit/8)))
+
+#define DmaCopy16(dmaNum, src, dest, size) DMA_COPY(dmaNum, src, dest, size, 16)
+#define DmaCopy32(dmaNum, src, dest, size) DMA_COPY(dmaNum, src, dest, size, 32)
+
+
+
 extern struct GLOBAL_STRUCTURE gGlobalStructure;
 extern u32 gUnk_30008D0;
 

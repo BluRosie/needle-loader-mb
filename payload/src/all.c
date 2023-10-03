@@ -143,6 +143,7 @@ s32 sub_20183F0(u32 index)
 
 
 extern u8 a_02019cec[];
+extern void _intr();
 
 s32 sub_201840C(u32 index)
 {
@@ -157,13 +158,12 @@ s32 sub_201840C(u32 index)
 }
 
 
-//void sub_2018428(void)
-//{
-//    u32 work;
-//    u32 *reg_ptrs = REG_DMA3SAD;
-//
-//    sub_2019A88(0xC0);
-//    work = DMA_DEST_INC;
-//    reg_ptrs[0] = (u32)&work;
-//    reg_ptrs[1] = 0x03000000;
-//}
+void sub_2018428(void) {
+    sub_2019A88(0xC0);
+    S_DmaFill32(3, 0, 0x03000000, 0x1E00*4);
+    S_DmaFill32(3, 0, 0x06000000, 0x6000*4);
+    REG_WAITCNT = 0x4014;
+    DmaCopy16(3, 0x02019bb4, 0x03000880, 0x1c*2);
+    DmaCopy16(3, &_intr, 0x03000024, 0x800);
+    *(u32*)0x03007ffc = 0x03000024; 
+}

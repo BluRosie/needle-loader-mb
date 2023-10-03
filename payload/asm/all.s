@@ -3,69 +3,6 @@
 	.text
 	.syntax unified
 
-	thumb_func_start sub_2018428
-sub_2018428: @ 0x02018428
-	push {lr}
-	sub sp, #4
-	movs r0, #0xc0
-	bl sub_2019A88
-	movs r2, #0
-	str r2, [sp]
-	ldr r0, _02018488 @ =0x040000D4
-	mov r1, sp
-	str r1, [r0]
-	movs r1, #0xc0
-	lsls r1, r1, #0x12
-	str r1, [r0, #4]
-	ldr r1, _0201848C @ =0x85001E00
-	str r1, [r0, #8]
-	ldr r1, [r0, #8]
-	str r2, [sp]
-	mov r3, sp
-	str r3, [r0]
-	movs r1, #0xc0
-	lsls r1, r1, #0x13
-	str r1, [r0, #4]
-	ldr r1, _02018490 @ =0x85006000
-	str r1, [r0, #8]
-	ldr r1, [r0, #8]
-	ldr r2, _02018494 @ =0x04000204
-	ldr r3, _02018498 @ =0x00004014
-	adds r1, r3, #0
-	strh r1, [r2]
-	ldr r1, _0201849C @ =0x02019BB4
-	str r1, [r0]
-	ldr r1, _020184A0 @ =0x03000880
-	str r1, [r0, #4]
-	ldr r1, _020184A4 @ =0x8000001C
-	str r1, [r0, #8]
-	ldr r1, [r0, #8]
-	ldr r1, _020184A8 @ =_intr
-	str r1, [r0]
-	ldr r2, _020184AC @ =0x03000024
-	str r2, [r0, #4]
-	ldr r1, _020184B0 @ =0x80000400
-	str r1, [r0, #8]
-	ldr r0, [r0, #8]
-	ldr r0, _020184B4 @ =0x03007FFC
-	str r2, [r0]
-	add sp, #4
-	pop {r0}
-	bx r0
-	.align 2, 0
-_02018488: .4byte 0x040000D4
-_0201848C: .4byte 0x85001E00
-_02018490: .4byte 0x85006000
-_02018494: .4byte 0x04000204
-_02018498: .4byte 0x00004014
-_0201849C: .4byte 0x02019BB4
-_020184A0: .4byte 0x03000880
-_020184A4: .4byte 0x8000001C
-_020184A8: .4byte _intr
-_020184AC: .4byte 0x03000024
-_020184B0: .4byte 0x80000400
-_020184B4: .4byte 0x03007FFC
-
 	thumb_func_start sub_20184B8
 sub_20184B8: @ 0x020184B8
 	push {r4, r5, r6, r7, lr}
