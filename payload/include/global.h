@@ -74,7 +74,7 @@ enum
 })
 
 
-struct GLOBAL_STRUCTURE {
+typedef struct GLOBAL_STRUCTURE {
     u8 pad_000[0x814];
     vu16 unk_814; // thanks jiang
     u16 unk_816;
@@ -105,7 +105,21 @@ struct GLOBAL_STRUCTURE {
     u8 unk_85D;
     u8 unk_85E;
     u8 unk_85F;
-};
+} GLOBAL_STRUCTURE;
+
+
+typedef struct unk_struct_03000E30 {
+    u32 unk0;
+    u16 unk4;
+    u16 unk6;
+    u16 unk8;
+    u16 unkA; // padding so far
+    u16 unkC; // padding so far
+    u8 unkE;
+    u8 unkF; // padding so far
+    u64 unk10;
+    u64 unk18;
+} unk_struct_03000E30;
 
 
 
@@ -159,8 +173,9 @@ struct GLOBAL_STRUCTURE {
 
 
 
-extern struct GLOBAL_STRUCTURE gGlobalStructure;
+extern GLOBAL_STRUCTURE gGlobalStructure;
 extern u32 gUnk_30008D0;
+extern unk_struct_03000E30 gUnk_3000E30;
 
 
 

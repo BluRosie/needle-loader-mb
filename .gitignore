@@ -1,6 +1,7 @@
 *.map
 *.gba
 *.elf
+*.sav
 build/
 payload/build
 tools/agbcc

@@ -1,5 +1,6 @@
 gGlobalStructure = 0x03000010;
 gUnk_30008D0 = 0x030008D0;
+gUnk_3000E30 = 0x03000E30;
 gIntrTable = 0x3000880;
 
 a_02019bec = 0x02019BEC;
