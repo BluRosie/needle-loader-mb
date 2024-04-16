@@ -3,51 +3,6 @@
 	.text
 	.syntax unified
 
-	thumb_func_start sub_20185A4
-sub_20185A4: @ 0x020185A4
-	push {r4, r5, r6, r7, lr}
-	sub sp, #0x24
-	adds r4, r0, #0
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	mov r1, sp
-	ldr r0, _020185F4 @ =0x0201ADFC
-	ldm r0!, {r2, r3, r5}
-	stm r1!, {r2, r3, r5}
-	add r5, sp, #0xc
-	adds r0, r5, #0
-	movs r1, #0
-	movs r2, #0xc
-	bl sub_2019B60
-	add r3, sp, #0x18
-	adds r1, r3, #0
-	ldr r0, _020185F8 @ =0x0201AE08
-	ldm r0!, {r2, r6, r7}
-	stm r1!, {r2, r6, r7}
-	lsls r4, r4, #0x18
-	asrs r2, r4, #0x18
-	cmp r2, #0
-	blt _020185EC
-	lsls r2, r2, #2
-	adds r0, r5, r2
-	ldr r0, [r0]
-	mov r4, sp
-	adds r1, r4, r2
-	ldr r1, [r1]
-	adds r2, r3, r2
-	ldr r2, [r2]
-	lsls r2, r2, #9
-	lsrs r2, r2, #0xb
-	bl sub_2019A84
-_020185EC:
-	add sp, #0x24
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_020185F4: .4byte 0x0201ADFC
-_020185F8: .4byte 0x0201AE08
-
 	thumb_func_start sub_20185FC
 sub_20185FC: @ 0x020185FC
 	push {r4, r5, r6, r7, lr}

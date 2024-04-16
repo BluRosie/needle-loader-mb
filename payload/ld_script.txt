@@ -21,6 +21,8 @@ SECTIONS {
     .rodata :
     ALIGN(4)
     {
+		data/data0.o(.data);
+		src/all.o(.rodata);
 		data/data.o(.data);
     } =0
 

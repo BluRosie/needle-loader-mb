@@ -1,16 +1,20 @@
 #include "global.h"
 
-
+// functions that are in the file
 void sub_2018348(u64 *ip, u64 *r8, u8 flag);
 s32 sub_20183F0(u32 index);
-void sub_2018428();
+void sub_2018428(void);
 void sub_201856C(u32 a0, u32 a1, u16 r6, u16 a3, u16 sp14, u8 sp18, u32 sp1C);
+
+
+// external declarations
 void sub_201866C(unk_struct_03000E30 *, u32);
 void sub_2018F44();
-void sub_2019A84(void *, u32, u32);
+//void sub_2019A84(void *, u32, u32);
+void sub_2019A84(u32, u32, u32);
 void sub_2019A88(u32);
+void sub_2019B60(u32 *, u32, u32);
 void nullsub_2(void);
-
 
 
 void AgbMain(void)
@@ -28,7 +32,7 @@ void sub_2018220(void)
     u8 unk_85F = gGlobalStructure.unk_85F;
     if (!unk_85F)
     {
-        sub_2019A84(&gUnk_30008D0, 0x07000000, 0x100);
+        sub_2019A84((u32)&gUnk_30008D0, 0x07000000, 0x100);
         REG_DISPCNT = gGlobalStructure.unk_82A;
         REG_BG0HOFS = gGlobalStructure.unk_83C;
         REG_BG0VOFS = gGlobalStructure.unk_83E;
@@ -213,4 +217,19 @@ void sub_201856C(u32 a0, u32 a1, u16 r6, u16 a3, u16 sp14, u8 sp18, u32 sp1C)
     gUnk_3000E30.unkE = sp18;
     sub_2018348(&gUnk_3000E30.unk10, &gUnk_3000E30.unk18, sp14);
     sub_201866C(&gUnk_3000E30, sp1C);
+}
+
+void sub_20185A4(s8 r4)
+{
+    // will have to come back and worry about rodata ordering potentially at some point
+    // currently is just weird ordered incbin's in data
+    u32 v10[3] = {0x06017F40, 0x06002000, 0x06002000};
+    u32 spC[3];
+
+    sub_2019B60(spC, 0, 12);
+    {
+        u32 v11[3] = {0xC0, 0xC00, 0x1200};
+        if ( r4 >= 0 )
+            sub_2019A84(spC[r4], v10[r4], (u32)(v11[r4] << 9) >> 11);
+    }
 }
