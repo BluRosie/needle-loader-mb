@@ -233,3 +233,25 @@ void sub_20185A4(s8 r4)
             sub_2019A84(spC[r4], v10[r4], (u32)(v11[r4] << 9) >> 11);
     }
 }
+
+void sub_20185FC(s8 a0, s8 a1)
+{
+    s8 a1_2 = a1; // needed to fix regswap
+    u32 sp0[3];
+    sub_2019B60(sp0, 0, 12);
+    {
+        u32 spC[3] = {0x340, 0xC00, 0x1200};
+        u32 sp18[1];
+        if (a1_2 >= 0)
+        {
+            s32 v7 = 0, v8;
+            for (v8 = 0; v8 <= 7; v8++)
+            {
+                s8 a00 = a0 & 0xF; // needed to fix regswap
+                v7 |= ((a00 & 0xF) << (v8 << 2));
+            }
+            sp18[0] = v7;
+            sub_2019A84((u32)sp18, sp0[a1_2], ((u32)(spC[a1_2] << 9) >> 11) | 0x1000000);
+        }
+    }
+}

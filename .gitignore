@@ -1,5 +1,6 @@
 *.map
 *.gba
+*.bak
 *.elf
 *.sav
 build/

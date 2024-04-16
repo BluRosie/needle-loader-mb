@@ -3,64 +3,6 @@
 	.text
 	.syntax unified
 
-	thumb_func_start sub_20185FC
-sub_20185FC: @ 0x020185FC
-	push {r4, r5, r6, r7, lr}
-	sub sp, #0x1c
-	adds r4, r1, #0
-	lsls r0, r0, #0x18
-	lsrs r6, r0, #0x18
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	mov r0, sp
-	movs r1, #0
-	movs r2, #0xc
-	bl sub_2019B60
-	add r2, sp, #0xc
-	adds r1, r2, #0
-	ldr r0, _02018668 @ =0x0201AE14
-	ldm r0!, {r3, r5, r7}
-	stm r1!, {r3, r5, r7}
-	lsls r0, r4, #0x18
-	mov ip, r2
-	cmp r0, #0
-	blt _0201865E
-	movs r4, #0
-	movs r3, #0
-	adds r5, r0, #0
-	add r7, sp, #0x18
-	movs r2, #0xf
-	ands r2, r6
-_02018632:
-	lsls r1, r3, #2
-	adds r0, r2, #0
-	lsls r0, r1
-	orrs r4, r0
-	adds r3, #1
-	cmp r3, #7
-	ble _02018632
-	str r4, [sp, #0x18]
-	asrs r0, r5, #0x16
-	mov r2, sp
-	adds r1, r2, r0
-	ldr r1, [r1]
-	add r0, ip
-	ldr r2, [r0]
-	lsls r2, r2, #9
-	lsrs r2, r2, #0xb
-	movs r0, #0x80
-	lsls r0, r0, #0x11
-	orrs r2, r0
-	adds r0, r7, #0
-	bl sub_2019A84
-_0201865E:
-	add sp, #0x1c
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_02018668: .4byte 0x0201AE14
-
 	thumb_func_start sub_201866C
 sub_201866C: @ 0x0201866C
 	push {r4, r5, r6, r7, lr}
