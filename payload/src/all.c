@@ -10,10 +10,9 @@ void sub_201856C(u32 a0, u32 a1, u16 r6, u16 a3, u16 sp14, u8 sp18, u32 sp1C);
 // external declarations
 void sub_201866C(unk_struct_03000E30 *, u32);
 void sub_2018F44();
-//void sub_2019A84(void *, u32, u32);
-void sub_2019A84(u32, u32, u32);
+void sub_2019A84(void *, u32, u32);
 void sub_2019A88(u32);
-void sub_2019B60(u32 *, u32, u32);
+void sub_2019B60(void *, u32, u32);
 void nullsub_2(void);
 
 
@@ -32,7 +31,7 @@ void sub_2018220(void)
     u8 unk_85F = gGlobalStructure.unk_85F;
     if (!unk_85F)
     {
-        sub_2019A84((u32)&gUnk_30008D0, 0x07000000, 0x100);
+        sub_2019A84(&gUnk_30008D0, 0x07000000, 0x100);
         REG_DISPCNT = gGlobalStructure.unk_82A;
         REG_BG0HOFS = gGlobalStructure.unk_83C;
         REG_BG0VOFS = gGlobalStructure.unk_83E;
@@ -224,7 +223,7 @@ void sub_20185A4(s8 r4)
     // will have to come back and worry about rodata ordering potentially at some point
     // currently is just weird ordered incbin's in data
     u32 v10[3] = {0x06017F40, 0x06002000, 0x06002000};
-    u32 spC[3];
+    void *spC[3];
 
     sub_2019B60(spC, 0, 12);
     {
@@ -251,7 +250,7 @@ void sub_20185FC(s8 a0, s8 a1)
                 v7 |= ((a00 & 0xF) << (v8 << 2));
             }
             sp18[0] = v7;
-            sub_2019A84((u32)sp18, sp0[a1_2], ((u32)(spC[a1_2] << 9) >> 11) | 0x1000000);
+            sub_2019A84(sp18, sp0[a1_2], ((u32)(spC[a1_2] << 9) >> 11) | 0x1000000);
         }
     }
 }
