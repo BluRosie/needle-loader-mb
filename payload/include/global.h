@@ -109,14 +109,14 @@ typedef struct GLOBAL_STRUCTURE {
 
 
 typedef struct unk_struct_03000E30 {
-    u32 unk0;
+    s8 *unk0;
     u16 unk4;
     u16 unk6;
     u16 unk8;
-    u16 unkA; // padding so far
-    u16 unkC; // padding so far
+    u16 unkA;
+    u16 unkC;
     u8 unkE;
-    u8 unkF; // padding so far
+    u8 unkF;
     u64 unk10;
     u64 unk18;
 } unk_struct_03000E30;

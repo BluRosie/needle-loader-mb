@@ -4,11 +4,11 @@
 void sub_2018348(u64 *ip, u64 *r8, u8 flag);
 s32 sub_20183F0(u32 index);
 void sub_2018428(void);
-void sub_201856C(u32 a0, u32 a1, u16 r6, u16 a3, u16 sp14, u8 sp18, u32 sp1C);
+void sub_201856C(s8 *a0, u32 a1, u16 r6, u16 a3, u16 sp14, u8 sp18, u32 sp1C);
 
 
 // external declarations
-void sub_201866C(unk_struct_03000E30 *, u32);
+void sub_201866C(unk_struct_03000E30 *a0, u32 a1);
 void sub_2018F44();
 void sub_2019A84(void *, u32, u32);
 void sub_2019A88(u32);
@@ -176,7 +176,7 @@ void sub_2018428(void) {
     *(u32*)0x03007ffc = 0x03000024;
 }
 
-s32 sub_20184B8(u32 spC, u16 *r9, u16 r2, u16 r8, u8 *sp3C, int sp40, u8 sp10, u8 sp14, u8 sp18)
+s32 sub_20184B8(s8 *spC, u16 *r9, u16 r2, u16 r8, u8 *sp3C, int sp40, u8 sp10, u8 sp14, u8 sp18)
 {
     s32 v12;
     s32 v13;
@@ -199,7 +199,7 @@ s32 sub_20184B8(u32 spC, u16 *r9, u16 r2, u16 r8, u8 *sp3C, int sp40, u8 sp10, u
         v17 = *r9;
         if ( v16 + v17 > 8 * r8 )
             break;
-        sub_201856C(spC + v13, v17, v14, r8, v15, sp10, v16 - 1);
+        sub_201856C(&spC[v13], v17, v14, r8, v15, sp10, v16 - 1);
         *r9 += v16;
         ++v12;
     }
@@ -207,7 +207,7 @@ s32 sub_20184B8(u32 spC, u16 *r9, u16 r2, u16 r8, u8 *sp3C, int sp40, u8 sp10, u
 }
 
 // sp14 needs to be casted down to u8 or else regswap in sub_20184B8
-void sub_201856C(u32 a0, u32 a1, u16 r6, u16 a3, u16 sp14, u8 sp18, u32 sp1C)
+void sub_201856C(s8 *a0, u32 a1, u16 r6, u16 a3, u16 sp14, u8 sp18, u32 sp1C)
 {
     gUnk_3000E30.unk0 = a0;
     gUnk_3000E30.unk4 = a1;
@@ -253,4 +253,247 @@ void sub_20185FC(s8 a0, s8 a1)
             sub_2019A84(sp18, sp0[a1_2], ((u32)(spC[a1_2] << 9) >> 11) | 0x1000000);
         }
     }
+}
+
+
+// see https://decomp.me/scratch/pekph for the attempt at this so far.  need to knock it out
+
+#ifdef NONMATCHING
+
+void sub_201866C(unk_struct_03000E30 *r3, s32 a1)
+{
+    u16 r9;
+    u16 r4;
+    //register unk_struct_03000E30 *r3 asm("r3") = r30;
+    s32 sp4 = 0; // sp4 is perfect
+
+    r9 = r3->unk6; // r9 is perfect
+    while (sp4 <= 7)
+    {
+        s32 r8 = 0; // r8 is perfect
+        u16 r7 = r3->unk4; // r7 is perfect
+        while (r8 < a1)
+        //for (r8 = 0; r8 < a1; r8++)
+        {
+            u8 temp1;
+            u32 temp2;
+            u8 temp3;
+            u8 *temp4;
+            u16 r6 = (r3->unk8 * (r9 >> 3) + (r7 >> 3)); // this is perfect
+            if ((((u8 *)(u32)&r3->unk18)[sp4] >> r8) & 1)
+            {
+                r4 = ((r6 << 5) + ((r9 & 7) << 2) + ((r7 & 7) >> 1));
+                temp1 = r3->unk0[r4];
+                if (r7 & 1)
+                {
+                    r3->unk0[r4] = (temp1 & 0xF) | (r3->unkE & 0xF) << 4;
+                }
+                else
+                {
+                    r3->unk0[r4] = (temp1 & 0xF0) | (r3->unkE & 0xF);
+                }
+            }
+            r6 = (r6 + r3->unk8);
+
+            // this is just about the same code as the above, but for some reason gets closer to matching with the extra variables.  maybe i'm focused on the percent too much
+            if ((((u8 *)(u32)r3->unk10)[sp4] >> r8) & 1)
+            {
+                r4 = ((r6 << 5) + ((r9 & 7) << 2) + ((r7 & 7) >> 1));
+                temp1 = r3->unk0[r4];
+                if ( r7 & 1 )
+                {
+                    temp2 = temp1 & 0xF;
+                    temp3 = (r3->unkE & 0xF) << 4;
+                    //r3->unk0[r4] = (temp1 & 0xF) | (r3->unkE & 0xF) << 4;
+                }
+                else
+                {
+                    temp2 = temp1 & 0xF0;
+                    temp3 = r3->unkE & 0xF;
+                    //r3->unk0[r4] = (temp1 & 0xF0) | (r3->unkE & 0xF);
+                }
+                temp1 = temp2 | temp3;
+                r3->unk0[r4] = temp2 | temp3;
+            }
+            r8++; // this is proper, but r1 is swapped with r2 for the operation
+            r7++; // this is proper as well
+        }
+        sp4++; // sp8 is swapped with spC
+        r9++; // 
+    }
+    return;
+}
+
+#else
+
+NAKED void sub_201866C(unk_struct_03000E30 *a0, u32 a1)
+{
+    asm_unified("\tpush {r4, r5, r6, r7, lr}\n\
+    \tmov r7, sl\n\
+    \tmov r6, sb\n\
+    \tmov r5, r8\n\
+    \tpush {r5, r6, r7}\n\
+    \tsub sp, #0x10\n\
+    \tadds r3, r0, #0\n\
+    \tstr r1, [sp]\n\
+    \tmovs r0, #0\n\
+    \tstr r0, [sp, #4]\n\
+    \tldrh r1, [r3, #6]\n\
+    \tmov sb, r1\n\
+    _02018684:\n\
+    \tmovs r2, #0\n\
+    \tmov r8, r2\n\
+    \tldrh r7, [r3, #4]\n\
+    \tldr r5, [sp, #4]\n\
+    \tadds r5, #1\n\
+    \tstr r5, [sp, #8]\n\
+    \tmov r0, sb\n\
+    \tadds r0, #1\n\
+    \tstr r0, [sp, #0xc]\n\
+    \tldr r1, [sp]\n\
+    \tcmp r8, r1\n\
+    \tbge _02018784\n\
+    \tmov r0, sb\n\
+    \tmovs r2, #7\n\
+    \tands r0, r2\n\
+    \tlsls r0, r0, #2\n\
+    \tmov sl, r0\n\
+    \tmovs r5, #0xf\n\
+    \tmov ip, r5\n\
+    _020186AA:\n\
+    \tmov r0, sb\n\
+    \tlsrs r1, r0, #3\n\
+    \tldrh r0, [r3, #8]\n\
+    \tadds r2, r0, #0\n\
+    \tmuls r2, r1, r2\n\
+    \tadds r0, r2, #0\n\
+    \tlsrs r1, r7, #3\n\
+    \tadds r0, r0, r1\n\
+    \tlsls r0, r0, #0x10\n\
+    \tlsrs r6, r0, #0x10\n\
+    \tadds r0, r3, #0\n\
+    \tadds r0, #0x18\n\
+    \tldr r5, [sp, #4]\n\
+    \tadds r0, r0, r5\n\
+    \tldrb r0, [r0]\n\
+    \tmov r1, r8\n\
+    \tasrs r0, r1\n\
+    \tmovs r2, #1\n\
+    \tands r0, r2\n\
+    \tcmp r0, #0\n\
+    \tbeq _02018716\n\
+    \tlsls r1, r6, #5\n\
+    \tadd r1, sl\n\
+    \tadds r0, r7, #0\n\
+    \tmovs r5, #7\n\
+    \tands r0, r5\n\
+    \tlsrs r0, r0, #1\n\
+    \tadds r1, r1, r0\n\
+    \tlsls r1, r1, #0x10\n\
+    \tlsrs r4, r1, #0x10\n\
+    \tldr r1, [r3]\n\
+    \tadds r0, r1, r4\n\
+    \tldrb r0, [r0]\n\
+    \tadds r2, r0, #0\n\
+    \tadds r0, r7, #0\n\
+    \tmovs r5, #1\n\
+    \tands r0, r5\n\
+    \tadds r5, r1, #0\n\
+    \tcmp r0, #0\n\
+    \tbeq _02018706\n\
+    \tmov r0, ip\n\
+    \tands r2, r0\n\
+    \tldrb r1, [r3, #0xe]\n\
+    \tands r0, r1\n\
+    \tlsls r0, r0, #4\n\
+    \tb _02018710\n\
+    _02018706:\n\
+    \tmovs r0, #0xf0\n\
+    \tands r2, r0\n\
+    \tldrb r1, [r3, #0xe]\n\
+    \tmov r0, ip\n\
+    \tands r0, r1\n\
+    _02018710:\n\
+    \torrs r2, r0\n\
+    \tadds r0, r5, r4\n\
+    \tstrb r2, [r0]\n\
+    _02018716:\n\
+    \tldrh r0, [r3, #8]\n\
+    \tadds r0, r6, r0\n\
+    \tlsls r0, r0, #0x10\n\
+    \tlsrs r6, r0, #0x10\n\
+    \tadds r0, r3, #0\n\
+    \tadds r0, #0x10\n\
+    \tldr r1, [sp, #4]\n\
+    \tadds r0, r0, r1\n\
+    \tldrb r0, [r0]\n\
+    \tmov r2, r8\n\
+    \tasrs r0, r2\n\
+    \tmovs r5, #1\n\
+    \tands r0, r5\n\
+    \tcmp r0, #0\n\
+    \tbeq _02018774\n\
+    \tlsls r1, r6, #5\n\
+    \tadd r1, sl\n\
+    \tadds r0, r7, #0\n\
+    \tmovs r2, #7\n\
+    \tands r0, r2\n\
+    \tlsrs r0, r0, #1\n\
+    \tadds r1, r1, r0\n\
+    \tlsls r1, r1, #0x10\n\
+    \tlsrs r4, r1, #0x10\n\
+    \tldr r1, [r3]\n\
+    \tadds r0, r1, r4\n\
+    \tldrb r0, [r0]\n\
+    \tadds r2, r0, #0\n\
+    \tadds r0, r7, #0\n\
+    \tands r0, r5\n\
+    \tadds r5, r1, #0\n\
+    \tcmp r0, #0\n\
+    \tbeq _02018764\n\
+    \tmov r0, ip\n\
+    \tands r2, r0\n\
+    \tldrb r1, [r3, #0xe]\n\
+    \tands r0, r1\n\
+    \tlsls r0, r0, #4\n\
+    \tb _0201876E\n\
+    _02018764:\n\
+    \tmovs r0, #0xf0\n\
+    \tands r2, r0\n\
+    \tldrb r1, [r3, #0xe]\n\
+    \tmov r0, ip\n\
+    \tands r0, r1\n\
+    _0201876E:\n\
+    \torrs r2, r0\n\
+    \tadds r0, r5, r4\n\
+    \tstrb r2, [r0]\n\
+    _02018774:\n\
+    \tmovs r1, #1\n\
+    \tadd r8, r1\n\
+    \tadds r0, r7, #1\n\
+    \tlsls r0, r0, #0x10\n\
+    \tlsrs r7, r0, #0x10\n\
+    \tldr r2, [sp]\n\
+    \tcmp r8, r2\n\
+    \tblt _020186AA\n\
+    _02018784:\n\
+    \tldr r5, [sp, #8]\n\
+    \tstr r5, [sp, #4]\n\
+    \tldr r1, [sp, #0xc]\n\
+    \tlsls r0, r1, #0x10\n\
+    \tlsrs r0, r0, #0x10\n\
+    \tmov sb, r0\n\
+    \tcmp r5, #7\n\
+    \tbgt _02018796\n\
+    \tb _02018684\n\
+    _02018796:\n\
+    \tadd sp, #0x10\n\
+    \tpop {r3, r4, r5}\n\
+    \tmov r8, r3\n\
+    \tmov sb, r4\n\
+    \tmov sl, r5\n\
+    \tpop {r4, r5, r6, r7}\n\
+    \tpop {r0}\n\
+    \tbx r0\n");
+#endif
 }
