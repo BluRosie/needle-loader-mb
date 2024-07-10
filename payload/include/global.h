@@ -75,7 +75,9 @@ enum
 
 
 typedef struct GLOBAL_STRUCTURE {
-    u8 pad_000[0x814];
+    u8 pad_000[0xC];
+    u32 rngValue;
+    u8 pad_010[0x814 - 0x10];
     vu16 unk_814; // thanks jiang
     u16 unk_816;
     u16 unk_818;

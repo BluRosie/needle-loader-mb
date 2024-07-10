@@ -8,10 +8,11 @@ void sub_201856C(s8 *a0, u32 a1, u16 r6, u16 a3, u16 sp14, u8 sp18, u32 sp1C);
 
 
 // external declarations
-void sub_201866C(unk_struct_03000E30 *a0, u32 a1);
+void sub_201866C(unk_struct_03000E30 *r3, s32 a1);
 void sub_2018F44();
 void sub_2019A84(void *, u32, u32);
 void sub_2019A88(u32);
+u32 sub_2019AC8(s32 r0, s16 r1);
 void sub_2019B60(void *, u32, u32);
 void nullsub_2(void);
 
@@ -106,7 +107,7 @@ void sub_2018348(u64 *ip, u64 *r8, u8 flag)
         sp0 = (u8 *)&sp0_stk[0];
         r6_a_201adec = a_0201adec;
         r3_pap = (u8 *)&sp0_stk[1];
-        r5_a_02019e6c = &({storage2[1].unk0;})[idx];
+        r5_a_02019e6c = &({storage2[1].unk0;})[idx]; // fakematch
         r1_a_02019dec = &storage2[0].unk0[idx];
 
         for (i = 7; i >= 0; i--)
@@ -128,7 +129,7 @@ void sub_2018348(u64 *ip, u64 *r8, u8 flag)
             r1_a_02019dec++;
         } // r12 is p1
         *ip = sp0_stk[0];
-        if (r3_pap) {r3_pap++; r3_pap--;} // this solves a regswap
+        if (r3_pap) {r3_pap++; r3_pap--;} // fakematch
         *storage = sp0_stk[1];
     }
     *r8 = *storage;
@@ -280,7 +281,7 @@ void sub_201866C(unk_struct_03000E30 *r3, s32 a1)
             u8 temp3;
             u8 *temp4;
             u16 r6 = (r3->unk8 * (r9 >> 3) + (r7 >> 3)); // this is perfect
-            if ((((u8 *)(u32)&r3->unk18)[sp4] >> r8) & 1)
+            if ((((u8 *)&r3->unk18)[sp4] >> r8) & 1)
             {
                 r4 = ((r6 << 5) + ((r9 & 7) << 2) + ((r7 & 7) >> 1));
                 temp1 = r3->unk0[r4];
@@ -326,7 +327,7 @@ void sub_201866C(unk_struct_03000E30 *r3, s32 a1)
 
 #else
 
-NAKED void sub_201866C(unk_struct_03000E30 *a0, u32 a1)
+NAKED void sub_201866C(unk_struct_03000E30 *r3, s32 a1)
 {
     asm_unified("\tpush {r4, r5, r6, r7, lr}\n\
     \tmov r7, sl\n\
@@ -495,5 +496,76 @@ NAKED void sub_201866C(unk_struct_03000E30 *a0, u32 a1)
     \tpop {r4, r5, r6, r7}\n\
     \tpop {r0}\n\
     \tbx r0\n");
-#endif
 }
+
+#endif
+
+s32 sub_20187A8(s16 r0, s16 r1)
+{
+    s32 temp = r0 * r1;
+    if (temp < 0)
+        temp += 0xFF;
+    return (temp << 8) >> 16;
+}
+
+s16 sub_20187C4(s16 r0, s16 r1)
+{
+    return sub_2019AC8((r0 << 16) >> 8, r1);
+}
+
+// pretty sure this is unused anyway
+u32 Random(GLOBAL_STRUCTURE *r2)
+{
+    r2->rngValue = (r2->rngValue * 1103515245) + ({r2->unk_85B + 12345;}); // fakematch
+    return (r2->rngValue << 1) >> 17;
+}
+
+void SeedRng(GLOBAL_STRUCTURE *r0, u32 seed)
+{
+    r0->rngValue = seed;
+}
+
+//void sub_2018808(GLOBAL_STRUCTURE *r5, u16 r1, u16 r4, u16 r3)
+//{
+//    r5->unk_820 = r4 | ((r1 == 1) ? 0xC0 : 0x80);
+//    if (r3 > 0x10)
+//        r3 = 0x10;
+//    r5->unk_81E = r3;
+//    asm(""::"r"(r4)); // somehow use boolean
+//}
+
+//	thumb_func_start sub_2018808
+//sub_2018808: @ 0x02018808
+//	push {r4, r5, lr}
+//	adds r5, r0, #0
+//	lsls r1, r1, #0x10
+//	lsrs r1, r1, #0x10
+//	lsls r2, r2, #0x10
+//	lsrs r4, r2, #0x10
+//	lsls r3, r3, #0x10
+//	lsrs r3, r3, #0x10
+//	cmp r1, #1
+//	bne _02018820
+//	movs r0, #0xc0
+//	b _02018822
+//_02018820:
+//	movs r0, #0x80
+//_02018822:
+//	movs r1, #0x82
+//	lsls r1, r1, #4
+//	adds r2, r5, r1
+//	adds r1, r4, #0
+//	orrs r1, r0
+//	strh r1, [r2]
+//	cmp r3, #0x10
+//	bls _02018834
+//	movs r3, #0x10
+//_02018834:
+//	ldr r1, _02018840 @ =0x0000081E
+//	adds r0, r5, r1
+//	strh r3, [r0]
+//	pop {r4, r5}
+//	pop {r0}
+//	bx r0
+//	.align 2, 0
+//_02018840: .4byte 0x0000081E

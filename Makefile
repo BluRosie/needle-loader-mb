@@ -147,13 +147,16 @@ $(ROM): $(ELF)
 	$(GBAGFX) $< $@
 
 payload:
-	@$(MAKE) -C payload COMPARE=$(COMPARE)
+	@$(MAKE) -C payload COMPARE=$(COMPARE) NONMATCHING=$(NONMATCHING)
 
 $(PAYLOADLZ): payload
 	@:
 
 compare:
 	@$(MAKE) COMPARE=1
+
+nonmatching:
+	@$(MAKE) NONMATCHING=1 COMPARE=1
 
 ###################
 ### Symbol file ###

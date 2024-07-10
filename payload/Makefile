@@ -81,10 +81,17 @@ infoshell = $(foreach line, $(shell $1 | sed "s/ /__SPACE__/g"), $(info $(subst 
 
 # Build tools when building the rom
 # Disable dependency scanning for clean/tidy/tools
+MAKEFLAGS += --no-print-directory
 ifeq (,$(filter-out all compare,$(MAKECMDGOALS)))
 $(call infoshell, $(MAKE) tools)
 else
 NODEP := 1
+endif
+
+# if nonmatching set NONMATCHING
+ifeq (1,$(NONMATCHING))
+CPPFLAGS += -DNONMATCHING
+ASFLAGS  += --defsym NONMATCHING=1
 endif
 
 $(shell mkdir -p $(SUBDIRS:%=$(OBJ_DIR)/%))
@@ -110,9 +117,6 @@ mostlyclean:
 
 clean: mostlyclean
 	@$(foreach tool,$(TOOLDIRS),$(MAKE) clean -C $(tool);)
-
-compare:
-	@$(MAKE) COMPARE=1
 
 tools:
 	@$(foreach tool,$(TOOLDIRS),$(MAKE) -C $(tool);)
@@ -152,6 +156,12 @@ $(ROM): $(ELF)
 
 $(ROMLZ): $(ROM)
 	$(GFX) $< $@ -search 1
+
+compare:
+	@$(MAKE) COMPARE=1
+
+nonmatching:
+	@$(MAKE) NONMATCHING=1 COMPARE=1
 
 ### Debug Print ###
 
