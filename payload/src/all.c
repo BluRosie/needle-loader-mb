@@ -525,47 +525,108 @@ void SeedRng(GLOBAL_STRUCTURE *r0, u32 seed)
     r0->rngValue = seed;
 }
 
-//void sub_2018808(GLOBAL_STRUCTURE *r5, u16 r1, u16 r4, u16 r3)
+// thanks kermalis!
+void sub_2018808(GLOBAL_STRUCTURE *r5, u16 r1, u16 r4, u16 r3)
+{
+    if (r1 == 1)
+        r5->unk_820 = r4 | 0xC0;
+    else
+        r5->unk_820 = r4 | 0x80;
+    if (r3 > 0x10)
+        r3 = 0x10;
+    r5->unk_81E = r3;
+}
+
+u16 sub_2018844(GLOBAL_STRUCTURE *r0, bool8 r1, u8 r2)
+{
+    s16 temp = r0->unk_81E;
+    if (r1 == TRUE)
+    {
+        temp += r2;
+        if (temp > 0x10)
+            temp = 0x10;
+    }
+    else if (r1 == FALSE)
+    {
+        temp -= r2;
+        if (temp < 0)
+            temp = 0;
+    }
+    r0->unk_81E = temp;
+    return r0->unk_81E;
+}
+
+void sub_2018894(u16 *r0, u32 r1, u32 r2, u8 *red, u8 *green, u8 *blue)
+{
+    u16 color;
+    color = r0[(r1 & 0xF) * 16 + (r2 & 0xF)];
+    *blue = COLOR_B(color);
+    *green = COLOR_G(color);
+    *red = COLOR_R(color);
+}
+
+void sub_20188C4(bool8 r0, u8 r6, u8 r7, u8 r, u8 g, u8 b)
+{
+    u16 *r5;
+    u16 color;
+    if (r0 == TRUE)
+        r5 = (u16 *)0x02038200;
+    else
+        r5 = (u16 *)0x02038000;
+    color = RGB(r, g, b);
+    r5[(r6 & 0xF) * 16 + (r7 & 0xF)] = color;
+    gGlobalStructure.unk_852 = 1;
+}
+
+
+//void sub_201892C(void)
 //{
-//    r5->unk_820 = r4 | ((r1 == 1) ? 0xC0 : 0x80);
-//    if (r3 > 0x10)
-//        r3 = 0x10;
-//    r5->unk_81E = r3;
-//    asm(""::"r"(r4)); // somehow use boolean
+//    gGlobalStructure.unk_814 &= 0xFFFE;
+//    if ((gGlobalStructure.unk_814 & 1) == 0)
+//    {
+//        do ; while ((gGlobalStructure.unk_814 & 1) == 0);
+//    }
+//    gGlobalStructure.unk_814 &= 0xFFFE;
 //}
 
-//	thumb_func_start sub_2018808
-//sub_2018808: @ 0x02018808
-//	push {r4, r5, lr}
-//	adds r5, r0, #0
-//	lsls r1, r1, #0x10
-//	lsrs r1, r1, #0x10
-//	lsls r2, r2, #0x10
-//	lsrs r4, r2, #0x10
-//	lsls r3, r3, #0x10
-//	lsrs r3, r3, #0x10
-//	cmp r1, #1
-//	bne _02018820
-//	movs r0, #0xc0
-//	b _02018822
-//_02018820:
-//	movs r0, #0x80
-//_02018822:
-//	movs r1, #0x82
-//	lsls r1, r1, #4
-//	adds r2, r5, r1
-//	adds r1, r4, #0
-//	orrs r1, r0
-//	strh r1, [r2]
-//	cmp r3, #0x10
-//	bls _02018834
-//	movs r3, #0x10
-//_02018834:
-//	ldr r1, _02018840 @ =0x0000081E
-//	adds r0, r5, r1
-//	strh r3, [r0]
-//	pop {r4, r5}
+
+//	thumb_func_start sub_201892C
+//sub_201892C: @ 0x0201892C
+//	push {r4, lr}
+//	ldr r2, _0201896C @ =0x03000010
+//	ldr r0, _02018970 @ =0x00000814
+//	adds r3, r2, r0
+//	ldrh r1, [r3]
+//	ldr r0, _02018974 @ =0x0000FFFE
+//	ands r0, r1
+//	ldrh r1, [r3]
+//	strh r0, [r3]
+//	ldrh r1, [r3]
+//	movs r0, #1
+//	ands r0, r1
+//	adds r4, r2, #0
+//	cmp r0, #0
+//	bne _02018958
+//	adds r2, r3, #0
+//	movs r3, #1
+//_0201894E:
+//	ldrh r1, [r2]
+//	adds r0, r3, #0
+//	ands r0, r1
+//	cmp r0, #0
+//	beq _0201894E
+//_02018958:
+//	ldr r0, _02018970 @ =0x00000814
+//	adds r1, r4, r0
+//	ldrh r2, [r1]
+//	ldr r0, _02018974 @ =0x0000FFFE
+//	ands r0, r2
+//	ldrh r2, [r1]
+//	strh r0, [r1]
+//	pop {r4}
 //	pop {r0}
 //	bx r0
 //	.align 2, 0
-//_02018840: .4byte 0x0000081E
+//_0201896C: .4byte 0x03000010
+//_02018970: .4byte 0x00000814
+//_02018974: .4byte 0x0000FFFE

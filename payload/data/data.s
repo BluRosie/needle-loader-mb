@@ -3,4 +3,5 @@
 	.data
 	.syntax unified
 
+// 0x2E20 - 0x0201AE20
 .incbin "data/data.bin"

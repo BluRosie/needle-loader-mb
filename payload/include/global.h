@@ -74,6 +74,12 @@ enum
 })
 
 
+#define RGB(r, g, b) (((b & 0x1F) << 10) | ((g & 0x1F) << 5) | (r & 0x1F))
+#define COLOR_R(color) (color & 0x1F)
+#define COLOR_G(color) ((color >> 5) & 0x1F)
+#define COLOR_B(color) ((color >> 10) & 0x1F)
+
+
 typedef struct GLOBAL_STRUCTURE {
     u8 pad_000[0xC];
     u32 rngValue;
@@ -99,7 +105,14 @@ typedef struct GLOBAL_STRUCTURE {
     u16 unk_846;
     u16 unk_848;
     u16 unk_84A;
-    u8 pad_84C[0x859 - 0x84C];
+    u8 pad_84C[0x852 - 0x84C];
+    u8 unk_852;
+    u8 unk_853;
+    u8 unk_854;
+    u8 unk_855;
+    u8 unk_856;
+    u8 unk_857;
+    u8 unk_858;
     u8 unk_859;
     u8 unk_85A;
     u8 unk_85B;
