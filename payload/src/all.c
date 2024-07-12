@@ -578,55 +578,58 @@ void sub_20188C4(bool8 r0, u8 r6, u8 r7, u8 r, u8 g, u8 b)
     gGlobalStructure.unk_852 = 1;
 }
 
+void sub_201892C(void)
+{
+    gGlobalStructure.unk_814 &= 0xFFFE;
+    while ((gGlobalStructure.unk_814 & 1) == 0) ;
+    gGlobalStructure.unk_814 &= 0xFFFE;
+}
 
-//void sub_201892C(void)
+//extern u64 *a_0201b0a0;
+//
+//void sub_2018978(void)
 //{
-//    gGlobalStructure.unk_814 &= 0xFFFE;
-//    if ((gGlobalStructure.unk_814 & 1) == 0)
+//    u64 *i;
+//    //u64 temp = a_0201b0a0;
+//    /*i = gUnk_30008D0.unk_000;
+//    while ((u32)i < (u32)&gUnk_30008D0.unk_400)
 //    {
-//        do ; while ((gGlobalStructure.unk_814 & 1) == 0);
+//        *i++ = *a_0201b0a0;
+//    }*/
+//    for (i = gUnk_30008D0.unk_000; (u32)i < (u32)&gUnk_30008D0.unk_400; i++)
+//    {
+//        *i = *a_0201b0a0;
 //    }
-//    gGlobalStructure.unk_814 &= 0xFFFE;
+//    gGlobalStructure.unk_860 = 0;
 //}
 
-
-//	thumb_func_start sub_201892C
-//sub_201892C: @ 0x0201892C
-//	push {r4, lr}
-//	ldr r2, _0201896C @ =0x03000010
-//	ldr r0, _02018970 @ =0x00000814
-//	adds r3, r2, r0
-//	ldrh r1, [r3]
-//	ldr r0, _02018974 @ =0x0000FFFE
-//	ands r0, r1
-//	ldrh r1, [r3]
-//	strh r0, [r3]
-//	ldrh r1, [r3]
-//	movs r0, #1
-//	ands r0, r1
-//	adds r4, r2, #0
-//	cmp r0, #0
-//	bne _02018958
-//	adds r2, r3, #0
-//	movs r3, #1
-//_0201894E:
-//	ldrh r1, [r2]
-//	adds r0, r3, #0
-//	ands r0, r1
-//	cmp r0, #0
-//	beq _0201894E
-//_02018958:
-//	ldr r0, _02018970 @ =0x00000814
-//	adds r1, r4, r0
-//	ldrh r2, [r1]
-//	ldr r0, _02018974 @ =0x0000FFFE
-//	ands r0, r2
-//	ldrh r2, [r1]
-//	strh r0, [r1]
-//	pop {r4}
+//	thumb_func_start sub_2018978
+//sub_2018978: @ 0x02018978
+//	push {r4, r5, lr}
+//	ldr r1, _020189A4 @ =0x030008D0
+//	movs r0, #0x80
+//	lsls r0, r0, #3
+//	adds r4, r1, r0
+//	ldr r5, _020189A8 @ =0x03000010
+//	cmp r1, r4
+//	bhs _02018994
+//	ldr r0, _020189AC @ =0x0201B0A0
+//	ldr r2, [r0]
+//	ldr r3, [r0, #4]
+//_0201898E:
+//	stm r1!, {r2, r3}
+//	cmp r1, r4
+//	blo _0201898E
+//_02018994:
+//	movs r0, #0x86
+//	lsls r0, r0, #4
+//	adds r1, r5, r0
+//	movs r0, #0
+//	strb r0, [r1]
+//	pop {r4, r5}
 //	pop {r0}
 //	bx r0
 //	.align 2, 0
-//_0201896C: .4byte 0x03000010
-//_02018970: .4byte 0x00000814
-//_02018974: .4byte 0x0000FFFE
+//_020189A4: .4byte 0x030008D0
+//_020189A8: .4byte 0x03000010
+//_020189AC: .4byte 0x0201B0A0

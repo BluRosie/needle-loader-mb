@@ -120,6 +120,7 @@ typedef struct GLOBAL_STRUCTURE {
     u8 unk_85D;
     u8 unk_85E;
     u8 unk_85F;
+    u8 unk_860;
 } GLOBAL_STRUCTURE;
 
 
@@ -135,6 +136,12 @@ typedef struct unk_struct_03000E30 {
     u64 unk10;
     u64 unk18;
 } unk_struct_03000E30;
+
+
+typedef struct unk_struct_030008D0 {
+    u64 unk_000[0x80];
+    void *unk_400;
+} unk_struct_030008D0;
 
 
 
@@ -189,7 +196,7 @@ typedef struct unk_struct_03000E30 {
 
 
 extern GLOBAL_STRUCTURE gGlobalStructure;
-extern u32 gUnk_30008D0;
+extern unk_struct_030008D0 gUnk_30008D0;
 extern unk_struct_03000E30 gUnk_3000E30;
 
 
