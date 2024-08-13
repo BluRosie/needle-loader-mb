@@ -3,65 +3,6 @@
 	.text
 	.syntax unified
 
-	thumb_func_start sub_2018978
-sub_2018978: @ 0x02018978
-	push {r4, r5, lr}
-	ldr r1, _020189A4 @ =0x030008D0
-	movs r0, #0x80
-	lsls r0, r0, #3
-	adds r4, r1, r0
-	ldr r5, _020189A8 @ =0x03000010
-	cmp r1, r4
-	bhs _02018994
-	ldr r0, _020189AC @ =0x0201B0A0
-	ldr r2, [r0]
-	ldr r3, [r0, #4]
-_0201898E:
-	stm r1!, {r2, r3}
-	cmp r1, r4
-	blo _0201898E
-_02018994:
-	movs r0, #0x86
-	lsls r0, r0, #4
-	adds r1, r5, r0
-	movs r0, #0
-	strb r0, [r1]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_020189A4: .4byte 0x030008D0
-_020189A8: .4byte 0x03000010
-_020189AC: .4byte 0x0201B0A0
-
-	thumb_func_start sub_20189B0
-sub_20189B0: @ 0x020189B0
-	push {r4, lr}
-	ldr r0, _020189D8 @ =0x04000130
-	ldrh r0, [r0]
-	ldr r1, _020189DC @ =0x000003FF
-	adds r2, r1, #0
-	eors r2, r0
-	ldr r1, _020189E0 @ =0x03000010
-	ldr r3, _020189E4 @ =0x00000818
-	adds r4, r1, r3
-	ldrh r3, [r4]
-	adds r0, r2, #0
-	bics r0, r3
-	ldr r3, _020189E8 @ =0x0000081A
-	adds r1, r1, r3
-	strh r0, [r1]
-	strh r2, [r4]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_020189D8: .4byte 0x04000130
-_020189DC: .4byte 0x000003FF
-_020189E0: .4byte 0x03000010
-_020189E4: .4byte 0x00000818
-_020189E8: .4byte 0x0000081A
-
 	thumb_func_start sub_20189EC
 sub_20189EC: @ 0x020189EC
 	ldr r2, _02018A10 @ =0x04000208

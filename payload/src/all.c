@@ -585,51 +585,63 @@ void sub_201892C(void)
     gGlobalStructure.unk_814 &= 0xFFFE;
 }
 
-//extern u64 *a_0201b0a0;
-//
-//void sub_2018978(void)
-//{
-//    u64 *i;
-//    //u64 temp = a_0201b0a0;
-//    /*i = gUnk_30008D0.unk_000;
-//    while ((u32)i < (u32)&gUnk_30008D0.unk_400)
-//    {
-//        *i++ = *a_0201b0a0;
-//    }*/
-//    for (i = gUnk_30008D0.unk_000; (u32)i < (u32)&gUnk_30008D0.unk_400; i++)
-//    {
-//        *i = *a_0201b0a0;
-//    }
-//    gGlobalStructure.unk_860 = 0;
-//}
 
-//	thumb_func_start sub_2018978
-//sub_2018978: @ 0x02018978
-//	push {r4, r5, lr}
-//	ldr r1, _020189A4 @ =0x030008D0
-//	movs r0, #0x80
-//	lsls r0, r0, #3
-//	adds r4, r1, r0
-//	ldr r5, _020189A8 @ =0x03000010
-//	cmp r1, r4
-//	bhs _02018994
-//	ldr r0, _020189AC @ =0x0201B0A0
-//	ldr r2, [r0]
-//	ldr r3, [r0, #4]
-//_0201898E:
-//	stm r1!, {r2, r3}
-//	cmp r1, r4
-//	blo _0201898E
-//_02018994:
-//	movs r0, #0x86
-//	lsls r0, r0, #4
-//	adds r1, r5, r0
-//	movs r0, #0
-//	strb r0, [r1]
-//	pop {r4, r5}
-//	pop {r0}
-//	bx r0
-//	.align 2, 0
-//_020189A4: .4byte 0x030008D0
-//_020189A8: .4byte 0x03000010
-//_020189AC: .4byte 0x0201B0A0
+extern const u64 gUnk_0201b0a0;
+
+#ifdef NONMATCHING
+void sub_2018978(void) {
+    u64* ptr = gUnk_30008D0.unk_000;
+    
+    for(; ptr < &gUnk_30008D0.unk_000[0x80]; ){
+        ptr[0] = gUnk_0201b0a0;
+        ptr++;
+        
+    }
+    gGlobalStructure.unk_860 = 0;
+    
+}
+#else
+
+NAKED void sub_2018978()
+{
+    asm_unified(
+"\t  push {r4, r5, lr}\n"
+"\t	ldr r1, _020189A4 @ =0x030008D0\n"
+"\t	movs r0, #0x80\n"
+"\t	lsls r0, r0, #3\n"
+"\t	adds r4, r1, r0\n"
+"\t	ldr r5, _020189A8 @ =0x03000010\n"
+"\t	cmp r1, r4\n"
+"\t	bhs _02018994\n"
+"\t	ldr r0, _020189AC @ =0x0201B0A0\n"
+"\t	ldr r2, [r0]\n"
+"\t	ldr r3, [r0, #4]\n"
+"\t_0201898E:\n"
+"\t	stm r1!, {r2, r3}\n"
+"\t	cmp r1, r4\n"
+"\t	blo _0201898E\n"
+"\t_02018994:\n"
+"\t	movs r0, #0x86\n"
+"\t	lsls r0, r0, #4\n"
+"\t	adds r1, r5, r0\n"
+"\t	movs r0, #0\n"
+"\t	strb r0, [r1]\n"
+"\t	pop {r4, r5}\n"
+"\t	pop {r0}\n"
+"\t	bx r0\n"
+"\t	.align 2, 0\n"
+"\t_020189A4: .4byte 0x030008D0\n"
+"\t_020189A8: .4byte 0x03000010\n"
+"\t_020189AC: .4byte 0x0201B0A0\n"
+
+);
+}
+
+#endif
+
+void sub_20189B0() {
+    u16 keys =  (REG_KEYINPUT ^ KEYS_MASK);
+    
+    gGlobalStructure.unk_81A = keys & ~gGlobalStructure.unk_818;
+    gGlobalStructure.unk_818 = keys; 
+}
