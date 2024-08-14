@@ -5,13 +5,18 @@ void sub_2018348(u64 *ip, u64 *r8, u8 flag);
 s32 sub_20183F0(u32 index);
 void sub_2018428(void);
 void sub_201856C(s8 *a0, u32 a1, u16 r6, u16 a3, u16 sp14, u8 sp18, u32 sp1C);
+void sub_201866C(unk_struct_03000E30 *r3, s32 a1);
+void sub_20189EC(void);
 
 
 // external declarations
-void sub_201866C(unk_struct_03000E30 *r3, s32 a1);
-void sub_2018F44();
+void sub_2018F44(void);
+void sub_2018FB8(void);
+void sub_2019468(void);
+void sub_2019498(u32, u32, u32, u32);
 void sub_2019A84(void *, u32, u32);
 void sub_2019A88(u32);
+void sub_02019A8C(s32);
 u32 sub_2019AC8(s32 r0, s16 r1);
 void sub_2019B60(void *, u32, u32);
 void nullsub_2(void);
@@ -320,7 +325,7 @@ void sub_201866C(unk_struct_03000E30 *r3, s32 a1)
             r7++; // this is proper as well
         }
         sp4++; // sp8 is swapped with spC
-        r9++; // 
+        r9++; //
     }
     return;
 }
@@ -591,18 +596,168 @@ extern const u64 a_0201b0a0;
 void sub_2018978(void) {
     u64* ptr = gUnk_30008D0;
     u64* r4 = &gUnk_30008D0[0x80];
-    
+
     while(ptr < r4){
         *ptr++ = a_0201b0a0;
-        
+
     }
     gGlobalStructure.unk_860 = 0;
-    
+
 }
 
 void sub_20189B0() {
     u16 keys =  (REG_KEYINPUT ^ KEYS_MASK);
-    
+
     gGlobalStructure.unk_81A = keys & ~gGlobalStructure.unk_818;
-    gGlobalStructure.unk_818 = keys; 
+    gGlobalStructure.unk_818 = keys;
+}
+
+void sub_20189EC() {
+    REG_IME = 0;
+
+    REG_DISPCNT = DISPCNT_FORCED_BLANK;
+    REG_DISPSTAT = DISPSTAT_VBLANK_INTR;
+    REG_IE = INTR_FLAG_VBLANK;
+
+    REG_IF = INTR_FLAG_VBLANK;
+    REG_IME = 1;
+
+}
+
+void UNUSED nullsub_6(void) {}
+
+void UNUSED nullsub_7(void) {}
+
+void UNUSED nullsub_2(void) {}
+
+void UNUSED nullsub_8(void) {}
+
+void UNUSED nullsub_9(void) {}
+
+void UNUSED nullsub_10(void) {}
+
+void UNUSED nullsub_11(void) {}
+
+void UNUSED nullsub_12(void) {}
+
+void UNUSED nullsub_13(void) {}
+
+void sub_2018A3C(char* arg0, char arg1, char arg2, int c) {
+    int i = 0;
+
+    if (c > 0) {
+        for (; i < c; i++) {
+            if (arg0[i] == arg1) {
+                arg0[i] = arg2;
+            }
+        }
+    }
+}
+
+int sub_2018A68(char* arg0, int count) {
+    char* c;
+    int i = 0;
+    if(count > 0){
+        for(i = count; i > 0; i--){
+            c =  (&arg0[i] -1);
+
+            if(*c != 0x80){
+                break;
+            }
+        }
+    }
+
+    return i;
+}
+
+
+int sub_2018A98(char* arg0, char* arg1, int c) {
+    int i = 0;
+
+
+    if(c > 0){
+        for(; i < c; i++){
+            if(arg0[i] != arg1[i]){
+                break;
+            }
+        }
+    }
+
+    return i != c;
+}
+
+void sub_2018AD4(char* arg0, char* arg1, int c) {
+    int i;
+
+    if(c > 0){
+        for(i = 0; i < c; i++){
+            arg1[i] = arg0[i];
+        }
+    }
+}
+
+void sub_2018AF8(char arg0, char* arg1, int c) {
+    int i;
+
+    if(c > 0){
+        for(i = 0; i < c; i++){
+            arg1[i] = arg0;
+        }
+    }
+}
+
+void UNUSED nullsub_14(void) {}
+
+void sub_2018B20(void) {
+    sub_20189EC();
+
+    gGlobalStructure.unk_85F = 1;
+    gGlobalStructure.unk_858 = 1;
+    gUnk_30008C0 = &g0203b000;
+
+    DmaCopy32(3,&g020213A4, OBJ_VRAM0, 0x8000);
+    DmaCopy32(3,&g020293a4, BG_VRAM, 0x8000);
+    DmaCopy16(3,&g020313A4, &g02038200, 0x200);
+    DmaCopy16(3,&g020315A4, &g02038000, 0x200);
+
+    DmaCopy16(3,&g02038000,BG_PLTT,0x400);
+
+
+    gGlobalStructure.unk_822 = 0xDC00;
+    gGlobalStructure.unk_824 = 0xD801;
+    gGlobalStructure.unk_826 = 0xD402;
+    gGlobalStructure.unk_828 = 0xD003;
+
+    DmaCopy32(3,&g020317a4,BG_VRAM + (8 * (gGlobalStructure.unk_822 & 0x1F00)),0x2000);
+
+    DmaCopy32(3,&g0201B3A4,(BG_VRAM + (8 * (gGlobalStructure.unk_824 & 0x1F00))),0x2000);
+    DmaCopy32(3,&g0201D3A4,(BG_VRAM + (8 * (gGlobalStructure.unk_826 & 0x1F00))),0x2000);
+    DmaCopy32(3,&g0201F3A4,(BG_VRAM + (8 * (gGlobalStructure.unk_828 & 0x1F00))),0x2000);
+
+
+    gGlobalStructure.unk_82A = 0x1000;
+    gGlobalStructure.unk_000 = 0;
+    gGlobalStructure.unk_85C++;
+    gGlobalStructure.unk_85E = 0;
+    sub_2019468();
+    sub_2019498(0xc,0x80,0x50,0);
+    sub_2019A84(&sub_201866C,0x3000cd0,0x58);
+    sub_2018FB8();
+    nullsub_14();
+}
+
+void sub_2018CCC(u32 arg0, u32 arg1){
+    g03000E50.unk8 = arg1;
+    g03000E50.unk0 = arg0;
+    g03000E50.unk26 = 1;
+}
+
+void sub_2018CE0(){
+    s32 arg = 0x2000000;
+    REG_IME = 0;
+    REG_DISPSTAT = 0;
+    REG_IE = 0;
+    REG_IF = 0xFFFF;
+    REG_DISPCNT = DISPCNT_FORCED_BLANK;
+    sub_02019A8C(arg);
 }

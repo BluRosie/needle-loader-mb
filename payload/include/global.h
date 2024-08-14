@@ -81,7 +81,8 @@ enum
 
 
 typedef struct GLOBAL_STRUCTURE {
-    u8 pad_000[0xC];
+    u32 unk_000;
+    u8 pad_004[0x8];
     u32 rngValue;
     u8 pad_010[0x814 - 0x10];
     vu16 unk_814; // thanks jiang
@@ -137,6 +138,15 @@ typedef struct unk_struct_03000E30 {
     u64 unk18;
 } unk_struct_03000E30;
 
+typedef struct unk_struct_03000E50 {
+    u32 unk0;
+    u32 unk4;
+    u32 unk8;
+    u32 unkC;
+    u8 pad[0x16];
+    u8 unk26;
+} unk_struct_03000E50;
+
 
 #define DmaSetSrc(dmaNum, src)     \
 {                                                 \
@@ -187,11 +197,24 @@ typedef struct unk_struct_03000E30 {
 #define DmaCopy32(dmaNum, src, dest, size) DMA_COPY(dmaNum, src, dest, size, 32)
 
 
+extern u8* g0201B3A4;
+extern u8* g0201D3A4;
+extern u32 g0203b000;
 
+
+extern u8* g0201F3A4;
+extern u8* g020213A4;
+extern u8* g020293a4;
+
+extern u8* g020313A4;
+extern u8* g020315A4;
+extern u8* g020317a4;
+extern u8* g02038000;
+extern u8* g02038200;
+extern u32* gUnk_30008C0;
 extern GLOBAL_STRUCTURE gGlobalStructure;
 extern u64 gUnk_30008D0[0x80];
 extern unk_struct_03000E30 gUnk_3000E30;
-
-
+extern unk_struct_03000E50 g03000E50;
 
 #endif
