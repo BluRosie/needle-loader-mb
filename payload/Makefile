@@ -30,11 +30,7 @@ export OBJDUMP := $(PREFIX)objdump
 
 PREPROC := ../tools/preproc/preproc
 SCANINC := ../tools/scaninc/scaninc
-RAMSCRGEN := ../tools/ramscrgen/ramscrgen
-MID := ../tools/mid2agb/mid2agb
-AIF := ../tools/aif2pcm/aif2pcm
 GFX := ../tools/gbagfx/gbagfx
-RSFONT := ../tools/rsfont/rsfont
 PERL := perl
 
 NAME := payload

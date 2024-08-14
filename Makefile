@@ -30,7 +30,6 @@ export OBJDUMP := $(PREFIX)objdump
 
 PREPROC := tools/preproc/preproc
 SCANINC := tools/scaninc/scaninc
-RAMSCRGEN := tools/ramscrgen/ramscrgen
 GBAFIX := tools/gbafix/gbafix
 GBAGFX := tools/gbagfx/gbagfx
 PYTHON := python3
