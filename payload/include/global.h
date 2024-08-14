@@ -138,13 +138,6 @@ typedef struct unk_struct_03000E30 {
 } unk_struct_03000E30;
 
 
-typedef struct unk_struct_030008D0 {
-    u64 unk_000[0x80];
-    void *unk_400;
-} unk_struct_030008D0;
-
-
-
 #define DmaSetSrc(dmaNum, src)     \
 {                                                 \
     vu32 *dmaRegs = (vu32 *)REG_ADDR_DMA##dmaNum; \
@@ -196,7 +189,7 @@ typedef struct unk_struct_030008D0 {
 
 
 extern GLOBAL_STRUCTURE gGlobalStructure;
-extern unk_struct_030008D0 gUnk_30008D0;
+extern u64 gUnk_30008D0[0x80];
 extern unk_struct_03000E30 gUnk_3000E30;
 
 
