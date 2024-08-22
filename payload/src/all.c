@@ -37,7 +37,7 @@ void sub_2018220(void)
     u8 unk_85F = gGlobalStructure.unk_85F;
     if (!unk_85F)
     {
-        sub_2019A84(&gUnk_30008D0, 0x07000000, 0x100);
+        CpuFastCopy(&gUnk_30008D0, (void*)0x07000000, 0x400);
         REG_DISPCNT = gGlobalStructure.unk_82A;
         REG_BG0HOFS = gGlobalStructure.unk_83C;
         REG_BG0VOFS = gGlobalStructure.unk_83E;
@@ -235,7 +235,7 @@ void sub_20185A4(s8 r4)
     {
         u32 v11[3] = {0xC0, 0xC00, 0x1200};
         if ( r4 >= 0 )
-            sub_2019A84(spC[r4], v10[r4], (u32)(v11[r4] << 9) >> 11);
+            CpuFastCopy((void*)spC[r4], (void*)v10[r4], v11[r4]);
     }
 }
 
@@ -256,7 +256,7 @@ void sub_20185FC(s8 a0, s8 a1)
                 v7 |= ((a00 & 0xF) << (v8 << 2));
             }
             sp18[0] = v7;
-            sub_2019A84(sp18, sp0[a1_2], ((u32)(spC[a1_2] << 9) >> 11) | 0x1000000);
+            CpuFastFill2((void*)sp18, (void*)sp0[a1_2], spC[a1_2] );
         }
     }
 }
@@ -741,7 +741,7 @@ void sub_2018B20(void) {
     gGlobalStructure.unk_85E = 0;
     sub_2019468();
     sub_2019498(0xc,0x80,0x50,0);
-    sub_2019A84(&sub_201866C,0x3000cd0,0x58);
+    CpuFastCopy((void*)0x201866D, (void*)0x3000cd0, 0x160);
     sub_2018FB8();
     nullsub_14();
 }
@@ -761,3 +761,65 @@ void sub_2018CE0(){
     REG_DISPCNT = DISPCNT_FORCED_BLANK;
     sub_02019A8C(arg);
 }
+
+
+
+void sub_2019428(int);
+
+extern u32 g0201b0a8[];
+
+#if 0
+void sub_2018F44() {
+    while (TRUE) {
+        u16 pad[2];
+        sub_20189B0();
+        sub_2018978();
+
+        if (!gGlobalStructure.unk_850 && g0201b0a8[gGlobalStructure.unk_85C]) {
+            sub_02019A8C(g0201b0a8[gGlobalStructure.unk_85C]);
+        }
+    }
+    sub_2019428(1);
+    gGlobalStructure.unk_85F = 0;
+    sub_201892C();
+}
+
+u32 sub_2018F9C(vu8* arg0){
+    u8 ret[4];
+
+    ret[0] = arg0[3];
+    ret[1] = arg0[2];
+    ret[2] = arg0[1];
+    ret[3] = arg0[0];
+    
+    return *(u32*)ret;
+} 
+
+
+void sub_2018FB8(){
+    u32 saveIME;
+    u32 arg;
+    u32 recv;
+
+    saveIME =  REG_IME;
+    REG_IME = 0;
+    REG_RCNT = 0xC000;
+    
+    REG_JOYSTAT = 0;
+    
+    recv = REG_JOY_RECV;
+    REG_JOY_TRANS = 0;
+
+    REG_JOYCNT = 0x47;
+    
+    REG_IF = 0x80;
+    REG_IF = 0x80;
+     
+    REG_IE |= 0x80;
+
+    CpuFastFill(0, (void *)0x3000E50, 0x40);
+
+    REG_IME = saveIME;
+}
+
+#endif

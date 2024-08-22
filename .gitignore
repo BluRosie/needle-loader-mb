@@ -12,3 +12,4 @@ tools/binutils
 *.dump
 .idea
 payload/payload.bin
+.vscode/

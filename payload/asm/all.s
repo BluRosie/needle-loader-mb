@@ -3,7 +3,7 @@
 	.text
 	.syntax unified
 
-	thumb_func_start sub_2018D20
+       thumb_func_start sub_2018D20
 sub_2018D20: @ 0x02018D20
 	push {r4, lr}
 	bl sub_2019728
@@ -255,6 +255,7 @@ _02018F38: .4byte 0x0000085E
 _02018F3C: .4byte 0x04000208
 _02018F40: .4byte 0x04000134
 
+//done
 	thumb_func_start sub_2018F44
 sub_2018F44: @ 0x02018F44
 	push {r4, r5, r6, r7, lr}
@@ -294,7 +295,7 @@ _02018F8C: .4byte 0x03000010
 _02018F90: .4byte 0x0201B0A8
 _02018F94: .4byte 0x0000085C
 _02018F98: .4byte 0x0000085F
-
+//done
 	thumb_func_start sub_2018F9C
 sub_2018F9C: @ 0x02018F9C
 	sub sp, #4
@@ -311,7 +312,7 @@ sub_2018F9C: @ 0x02018F9C
 	ldr r0, [sp]
 	add sp, #4
 	bx lr
-
+//done
 	thumb_func_start sub_2018FB8
 sub_2018FB8: @ 0x02018FB8
 	push {r4, r5, lr}
@@ -347,7 +348,7 @@ sub_2018FB8: @ 0x02018FB8
 	ldr r1, _02019020 @ =0x03000E50
 	ldr r2, _02019024 @ =0x01000010
 	mov r0, sp
-	bl sub_2019A84
+	bl CpuFastSet
 	strh r4, [r5]
 	add sp, #4
 	pop {r4, r5}
@@ -790,7 +791,7 @@ _02019354:
 	ldr r2, _02019384 @ =0x01000010
 	mov r0, sp
 	adds r1, r4, #0
-	bl sub_2019A84
+	bl CpuFastSet
 	movs r0, #1
 	rsbs r0, r0, #0
 	str r0, [r4, #0xc]
@@ -868,7 +869,7 @@ sub_20193C0: @ 0x020193C0
 	ldr r1, _02019420 @ =0x03000E50
 	ldr r2, _02019424 @ =0x01000010
 	mov r0, sp
-	bl sub_2019A84
+	bl CpuFastSet
 	strh r4, [r5]
 	add sp, #4
 	pop {r4, r5}
@@ -926,7 +927,7 @@ sub_2019468: @ 0x02019468
 	ldr r1, _02019480 @ =0x03000E90
 	ldr r2, _02019484 @ =0x01000120
 	mov r0, sp
-	bl sub_2019A84
+	bl CpuFastSet
 	add sp, #4
 	pop {r0}
 	bx r0
@@ -979,7 +980,7 @@ sub_2019498: @ 0x02019498
 	ldr r2, _0201954C @ =0x01000018
 	mov r0, sp
 	adds r1, r7, #0
-	bl sub_2019A84
+	bl CpuFastSet
 	ldr r0, [r5]
 	str r0, [r7]
 	adds r0, r6, #4
@@ -1758,8 +1759,8 @@ _02019A78: .4byte 0x0201B398
 _02019A7C: .4byte 0x03000870
 _02019A80: .4byte 0x030008D0
 
-	thumb_func_start sub_2019A84
-sub_2019A84: @ 0x02019A84
+	thumb_func_start CpuFastSet
+CpuFastSet: @ 0x02019A84
 	svc #0xc
 	bx lr
 
