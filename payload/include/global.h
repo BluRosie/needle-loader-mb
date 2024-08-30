@@ -145,8 +145,17 @@ typedef struct unk_struct_03000E50 {
     u32 unk4;
     u32 unk8;
     u32 unkC;
-    u8 pad[0x16];
+    u8 pad[0x8];
+    u32 unk18;
+    u8 pad2[0x4];
+    u32 unk20;
+    u8 unk24;
+    s8 unk25;
     u8 unk26;
+    u8 unk27;
+    u8 unk28;
+    u8 unk29;
+    u8 unk2A;
 } unk_struct_03000E50;
 
 
