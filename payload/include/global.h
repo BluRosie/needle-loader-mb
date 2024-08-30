@@ -106,7 +106,9 @@ typedef struct GLOBAL_STRUCTURE {
     u16 unk_846;
     u16 unk_848;
     u16 unk_84A;
-    u8 pad_84C[0x852 - 0x84C];
+    u8 pad_84C[0x850 - 0x84C];
+    u8 unk_850;
+    u8 unk_851;
     u8 unk_852;
     u8 unk_853;
     u8 unk_854;
@@ -117,7 +119,7 @@ typedef struct GLOBAL_STRUCTURE {
     u8 unk_859;
     u8 unk_85A;
     u8 unk_85B;
-    u8 unk_85C;
+    s8 unk_85C;
     u8 unk_85D;
     u8 unk_85E;
     u8 unk_85F;
