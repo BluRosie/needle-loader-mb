@@ -119,7 +119,7 @@ typedef struct GLOBAL_STRUCTURE {
     u8 unk_859;
     u8 unk_85A;
     u8 unk_85B;
-    u8 unk_85C;
+    s8 unk_85C;
     u8 unk_85D;
     u8 unk_85E;
     u8 unk_85F;

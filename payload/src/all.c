@@ -762,26 +762,279 @@ void sub_2018CE0(){
     sub_02019A8C(arg);
 }
 
+NAKED void sub_2018D20(){
+    asm_unified("\tpush {r4, lr}\n\
+    \tbl sub_2019728\n\
+    \tldr r0, _02018D44 @ =0x03000010\n\
+    \tldr r1, _02018D48 @ =0x0000085E\n\
+    \tadds r0, r0, r1\n\
+    \tldrb r0, [r0]\n\
+    \tlsls r0, r0, #0x18\n\
+    \tasrs r0, r0, #0x18\n\
+    \tcmp r0, #7\n\
+    \tbls _02018D38\n\
+    \tb _02018F08\n\
+    \t_02018D38:\n\
+    \tlsls r0, r0, #2\n\
+    \tldr r1, _02018D4C @ =_02018D50\n\
+    \tadds r0, r0, r1\n\
+    \tldr r0, [r0]\n\
+    \tmov pc, r0\n\
+    \t.align 2, 0\n\
+    \t_02018D44: .4byte 0x03000010\n\
+    \t_02018D48: .4byte 0x0000085E\n\
+    \t_02018D4C: .4byte _02018D50\n\
+    \t_02018D50: @ jump table\n\
+    \t.4byte _02018D70 @ case 0\n\
+    \t.4byte _02018DA8 @ case 1\n\
+    \t.4byte _02018E00 @ case 2\n\
+    \t.4byte _02018E38 @ case 3\n\
+    \t.4byte _02018F08 @ case 4\n\
+    \t.4byte _02018EAC @ case 5\n\
+    \t.4byte _02018F08 @ case 6\n\
+    \t.4byte _02018EEC @ case 7\n\
+    \t_02018D70:\n\
+    \tldr r0, _02018D94 @ =0x03000E50\n\
+    \tldr r1, [r0, #0x18]\n\
+    \tldr r0, _02018D98 @ =0xFFFE0202\n\
+    \tcmp r1, r0\n\
+    \tbeq _02018D7C\n\
+    \tb _02018F2E\n\
+    \t_02018D7C:\n\
+    \tmovs r0, #0x80\n\
+    \tlsls r0, r0, #0x12\n\
+    \tldr r1, _02018D9C @ =0x0000ACC0\n\
+    \tbl sub_2018CCC\n\
+    \tldr r0, _02018DA0 @ =0x03000010\n\
+    \tldr r2, _02018DA4 @ =0x0000085E\n\
+    \tadds r0, r0, r2\n\
+    \tmovs r1, #1\n\
+    \tstrb r1, [r0]\n\
+    \tb _02018F2E\n\
+    \t.align 2, 0\n\
+    \t_02018D94: .4byte 0x03000E50\n\
+    \t_02018D98: .4byte 0xFFFE0202\n\
+    \t_02018D9C: .4byte 0x0000ACC0\n\
+    \t_02018DA0: .4byte 0x03000010\n\
+    \t_02018DA4: .4byte 0x0000085E\n\
+    \t_02018DA8:\n\
+    \tldr r0, _02018DC8 @ =0x03000E50\n\
+    \tadds r1, r0, #0\n\
+    \tadds r1, #0x25\n\
+    \tldrb r1, [r1]\n\
+    \tlsls r1, r1, #0x18\n\
+    \tasrs r1, r1, #0x18\n\
+    \tcmp r1, #0\n\
+    \tbeq _02018DE4\n\
+    \tcmp r1, #1\n\
+    \tbne _02018DD4\n\
+    \tldr r0, _02018DCC @ =0x03000010\n\
+    \tldr r3, _02018DD0 @ =0x0000085E\n\
+    \tadds r0, r0, r3\n\
+    \tmovs r1, #2\n\
+    \tstrb r1, [r0]\n\
+    \tb _02018F2E\n\
+    \t.align 2, 0\n\
+    \t_02018DC8: .4byte 0x03000E50\n\
+    \t_02018DCC: .4byte 0x03000010\n\
+    \t_02018DD0: .4byte 0x0000085E\n\
+    \t_02018DD4:\n\
+    \tldr r0, _02018DDC @ =0x03000010\n\
+    \tldr r4, _02018DE0 @ =0x0000085E\n\
+    \tadds r0, r0, r4\n\
+    \tb _02018E7E\n\
+    \t.align 2, 0\n\
+    \t_02018DDC: .4byte 0x03000010\n\
+    \t_02018DE0: .4byte 0x0000085E\n\
+    \t_02018DE4:\n\
+    \tadds r0, #0x29\n\
+    \tldrb r0, [r0]\n\
+    \tcmp r0, #0\n\
+    \tbeq _02018DEE\n\
+    \tb _02018F2E\n\
+    \t_02018DEE:\n\
+    \tldr r0, _02018DF8 @ =0x03000010\n\
+    \tldr r1, _02018DFC @ =0x0000085E\n\
+    \tadds r0, r0, r1\n\
+    \tb _02018E9A\n\
+    \t.align 2, 0\n\
+    \t_02018DF8: .4byte 0x03000010\n\
+    \t_02018DFC: .4byte 0x0000085E\n\
+    \t_02018E00:\n\
+    \tldr r0, _02018E24 @ =0x03000E50\n\
+    \tldr r1, [r0, #0x18]\n\
+    \tldr r0, _02018E28 @ =0xFFFE0202\n\
+    \tcmp r1, r0\n\
+    \tbeq _02018E0C\n\
+    \tb _02018F2E\n\
+    \t_02018E0C:\n\
+    \tldr r0, _02018E2C @ =0x030008C0\n\
+    \tldr r0, [r0]\n\
+    \tmovs r1, #0x88\n\
+    \tlsls r1, r1, #5\n\
+    \tbl sub_2018CCC\n\
+    \tldr r0, _02018E30 @ =0x03000010\n\
+    \tldr r2, _02018E34 @ =0x0000085E\n\
+    \tadds r0, r0, r2\n\
+    \tmovs r1, #3\n\
+    \tstrb r1, [r0]\n\
+    \tb _02018F2E\n\
+    \t.align 2, 0\n\
+    \t_02018E24: .4byte 0x03000E50\n\
+    \t_02018E28: .4byte 0xFFFE0202\n\
+    \t_02018E2C: .4byte 0x030008C0\n\
+    \t_02018E30: .4byte 0x03000010\n\
+    \t_02018E34: .4byte 0x0000085E\n\
+    \t_02018E38:\n\
+    \tldr r0, _02018E68 @ =0x03000E50\n\
+    \tadds r1, r0, #0\n\
+    \tadds r1, #0x25\n\
+    \tldrb r1, [r1]\n\
+    \tlsls r1, r1, #0x18\n\
+    \tasrs r1, r1, #0x18\n\
+    \tcmp r1, #0\n\
+    \tbeq _02018E8C\n\
+    \tcmp r1, #1\n\
+    \tbne _02018E78\n\
+    \tldr r1, _02018E6C @ =0x03000010\n\
+    \tmovs r3, #0x84\n\
+    \tlsls r3, r3, #4\n\
+    \tadds r0, r1, r3\n\
+    \tmovs r2, #0\n\
+    \tstrh r2, [r0]\n\
+    \tldr r4, _02018E70 @ =0x00000842\n\
+    \tadds r0, r1, r4\n\
+    \tstrh r2, [r0]\n\
+    \tldr r0, _02018E74 @ =0x0000085E\n\
+    \tadds r1, r1, r0\n\
+    \tmovs r0, #5\n\
+    \tstrb r0, [r1]\n\
+    \tb _02018F2E\n\
+    \t.align 2, 0\n\
+    \t_02018E68: .4byte 0x03000E50\n\
+    \t_02018E6C: .4byte 0x03000010\n\
+    \t_02018E70: .4byte 0x00000842\n\
+    \t_02018E74: .4byte 0x0000085E\n\
+    \t_02018E78:\n\
+    \tldr r0, _02018E84 @ =0x03000010\n\
+    \tldr r1, _02018E88 @ =0x0000085E\n\
+    \tadds r0, r0, r1\n\
+    \t_02018E7E:\n\
+    \tmovs r1, #4\n\
+    \tstrb r1, [r0]\n\
+    \tb _02018F2E\n\
+    \t.align 2, 0\n\
+    \t_02018E84: .4byte 0x03000010\n\
+    \t_02018E88: .4byte 0x0000085E\n\
+    \t_02018E8C:\n\
+    \tadds r0, #0x29\n\
+    \tldrb r0, [r0]\n\
+    \tcmp r0, #0\n\
+    \tbne _02018F2E\n\
+    \tldr r0, _02018EA4 @ =0x03000010\n\
+    \tldr r2, _02018EA8 @ =0x0000085E\n\
+    \tadds r0, r0, r2\n\
+    \t_02018E9A:\n\
+    \tmovs r1, #4\n\
+    \tstrb r1, [r0]\n\
+    \tbl sub_20193C0\n\
+    \tb _02018F2E\n\
+    \t.align 2, 0\n\
+    \t_02018EA4: .4byte 0x03000010\n\
+    \t_02018EA8: .4byte 0x0000085E\n\
+    \t_02018EAC:\n\
+    \tldr r1, _02018EDC @ =0x04000208\n\
+    \tldrh r0, [r1]\n\
+    \tadds r3, r0, #0\n\
+    \tmovs r0, #0\n\
+    \tstrh r0, [r1]\n\
+    \tldr r2, _02018EE0 @ =0x04000134\n\
+    \tmovs r4, #0x80\n\
+    \tlsls r4, r4, #8\n\
+    \tadds r0, r4, #0\n\
+    \tstrh r0, [r2]\n\
+    \tstrh r3, [r1]\n\
+    \tldr r4, _02018EE4 @ =0x03000010\n\
+    \tadds r0, r4, #0\n\
+    \tmovs r1, #0x80\n\
+    \tmovs r2, #0x3f\n\
+    \tmovs r3, #0\n\
+    \tbl sub_2018808\n\
+    \tldr r0, _02018EE8 @ =0x0000085E\n\
+    \tadds r4, r4, r0\n\
+    \tmovs r0, #7\n\
+    \tstrb r0, [r4]\n\
+    \tb _02018F2E\n\
+    \t.align 2, 0\n\
+    \t_02018EDC: .4byte 0x04000208\n\
+    \t_02018EE0: .4byte 0x04000134\n\
+    \t_02018EE4: .4byte 0x03000010\n\
+    \t_02018EE8: .4byte 0x0000085E\n\
+    \t_02018EEC:\n\
+    \tldr r0, _02018F04 @ =0x03000010\n\
+    \tmovs r1, #1\n\
+    \tmovs r2, #1\n\
+    \tbl sub_2018844\n\
+    \tlsls r0, r0, #0x10\n\
+    \tlsrs r0, r0, #0x10\n\
+    \tcmp r0, #0x10\n\
+    \tbne _02018F2E\n\
+    \tbl sub_2018CE0\n\
+    \tb _02018F2E\n\
+    \t.align 2, 0\n\
+    \t_02018F04: .4byte 0x03000010\n\
+    \t_02018F08:\n\
+    \tldr r0, _02018F34 @ =0x03000010\n\
+    \tldr r1, _02018F38 @ =0x0000085E\n\
+    \tadds r0, r0, r1\n\
+    \tldrb r0, [r0]\n\
+    \tlsls r0, r0, #0x18\n\
+    \tasrs r0, r0, #0x18\n\
+    \tcmp r0, #4\n\
+    \tbne _02018F2E\n\
+    \tldr r1, _02018F3C @ =0x04000208\n\
+    \tldrh r0, [r1]\n\
+    \tadds r3, r0, #0\n\
+    \tmovs r0, #0\n\
+    \tstrh r0, [r1]\n\
+    \tldr r2, _02018F40 @ =0x04000134\n\
+    \tmovs r4, #0x80\n\
+    \tlsls r4, r4, #8\n\
+    \tadds r0, r4, #0\n\
+    \tstrh r0, [r2]\n\
+    \tstrh r3, [r1]\n\
+    \t_02018F2E:\n\
+    \tpop {r4}\n\
+    \tpop {r0}\n\
+    \tbx r0\n\
+    \t.align 2, 0\n\
+    \t_02018F34: .4byte 0x03000010\n\
+    \t_02018F38: .4byte 0x0000085E\n\
+    \t_02018F3C: .4byte 0x04000208\n\
+    \t_02018F40: .4byte 0x04000134\n");
+}
 
 
 void sub_2019428(int);
 
 extern u32 g0201b0a8[];
 
-#if 0
-void sub_2018F44() {
-    while (TRUE) {
-        u16 pad[2];
+void sub_2018F44(){
+    while(TRUE){
+        u16 pad[2];    
         sub_20189B0();
         sub_2018978();
-
-        if (!gGlobalStructure.unk_850 && g0201b0a8[gGlobalStructure.unk_85C]) {
-            sub_02019A8C(g0201b0a8[gGlobalStructure.unk_85C]);
+    
+       
+        if(gGlobalStructure.unk_850 == 0){
+            if(g0201b0a8[gGlobalStructure.unk_85C]  != 0){
+                sub_02019A8C(g0201b0a8[gGlobalStructure.unk_85C]); 
+            }
         }
+        sub_2019428(1);
+        gGlobalStructure.unk_85F = 0;
+        sub_201892C();
     }
-    sub_2019428(1);
-    gGlobalStructure.unk_85F = 0;
-    sub_201892C();
 }
 
 u32 sub_2018F9C(vu8* arg0){
@@ -821,5 +1074,3 @@ void sub_2018FB8(){
 
     REG_IME = saveIME;
 }
-
-#endif
