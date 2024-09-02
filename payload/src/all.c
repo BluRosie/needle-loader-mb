@@ -1015,7 +1015,7 @@ NAKED void sub_2018D20(){
 }
 
 
-void sub_2019428(int);
+int sub_2019428(char);
 
 extern u32 g0201b0a8[];
 
@@ -1074,3 +1074,524 @@ void sub_2018FB8(){
 
     REG_IME = saveIME;
 }
+
+NAKED void sub_2019028(){
+    asm_unified("\tpush {r4, r5, r6, r7, lr}\n\
+    \tmov r7, r8\n\
+    \tpush {r7}\n\
+    \tsub sp, #8\n\
+    \tldr r0, _02019060 @ =0x04000140\n\
+    \tldrh r0, [r0]\n\
+    \tmov r8, r0\n\
+    \tmovs r0, #1\n\
+    \tmov r1, r8\n\
+    \tands r0, r1\n\
+    \tldr r6, _02019064 @ =0x03000E50\n\
+    \tcmp r0, #0\n\
+    \tbeq _0201907C\n\
+    \tadds r3, r6, #0\n\
+    \tadds r3, #0x29\n\
+    \tldrb r2, [r3]\n\
+    \tcmp r2, #0\n\
+    \tbne _02019074\n\
+    \tldr r0, _02019068 @ =0x04000150\n\
+    \tldr r0, [r0]\n\
+    \tstr r0, [sp, #4]\n\
+    \tldr r1, _0201906C @ =0x04000154\n\
+    \tldr r0, _02019070 @ =0x0201B0B0\n\
+    \tldr r0, [r0]\n\
+    \tstr r0, [r1]\n\
+    \tstrb r2, [r3]\n\
+    \tb _0201907C\n\
+    \t.align 2, 0\n\
+    \t_02019060: .4byte 0x04000140\n\
+    \t_02019064: .4byte 0x03000E50\n\
+    \t_02019068: .4byte 0x04000150\n\
+    \t_0201906C: .4byte 0x04000154\n\
+    \t_02019070: .4byte 0x0201B0B0\n\
+    \t_02019074:\n\
+    \tmovs r0, #2\n\
+    \tmov r1, r8\n\
+    \torrs r1, r0\n\
+    \tmov r8, r1\n\
+    \t_0201907C:\n\
+    \tmovs r7, #2\n\
+    \tmov r0, r8\n\
+    \tands r0, r7\n\
+    \tcmp r0, #0\n\
+    \tbne _02019088\n\
+    \tb _0201939A\n\
+    \t_02019088:\n\
+    \tldr r0, _020190C4 @ =0x04000150\n\
+    \tldr r0, [r0]\n\
+    \tstr r0, [sp, #4]\n\
+    \tadds r4, r6, #0\n\
+    \tadds r5, r4, #0\n\
+    \tadds r5, #0x29\n\
+    \tldrb r2, [r5]\n\
+    \tcmp r2, #1\n\
+    \tbeq _0201909C\n\
+    \tb _02019388\n\
+    \t_0201909C:\n\
+    \tldr r1, [r4, #0x18]\n\
+    \tldr r0, _020190C8 @ =0xFFFE0105\n\
+    \tcmp r1, r0\n\
+    \tbeq _020190DC\n\
+    \tcmp r1, r0\n\
+    \tbhi _020190CC\n\
+    \tsubs r0, #3\n\
+    \tcmp r1, r0\n\
+    \tbls _020190B0\n\
+    \tb _0201933C\n\
+    \t_020190B0:\n\
+    \tsubs r0, #1\n\
+    \tcmp r1, r0\n\
+    \tbhs _020190B8\n\
+    \tb _0201933C\n\
+    \t_020190B8:\n\
+    \tadds r0, r4, #0\n\
+    \tldr r1, [r0, #8]\n\
+    \tcmp r1, #0\n\
+    \tbge _020190F4\n\
+    \tadds r1, #3\n\
+    \tb _020190F4\n\
+    \t.align 2, 0\n\
+    \t_020190C4: .4byte 0x04000150\n\
+    \t_020190C8: .4byte 0xFFFE0105\n\
+    \t_020190CC:\n\
+    \tldr r0, _020190D8 @ =0xFFFE0202\n\
+    \tcmp r1, r0\n\
+    \tbne _020190D4\n\
+    \tb _02019208\n\
+    \t_020190D4:\n\
+    \tb _0201933C\n\
+    \t.align 2, 0\n\
+    \t_020190D8: .4byte 0xFFFE0202\n\
+    \t_020190DC:\n\
+    \tldr r0, _020190EC @ =0x04000154\n\
+    \tldr r1, _020190F0 @ =0xFFFE0206\n\
+    \tstr r1, [r0]\n\
+    \tmovs r0, #0\n\
+    \tstrb r0, [r5]\n\
+    \tstr r0, [r4, #0x18]\n\
+    \tb _0201939A\n\
+    \t.align 2, 0\n\
+    \t_020190EC: .4byte 0x04000154\n\
+    \t_020190F0: .4byte 0xFFFE0206\n\
+    \t_020190F4:\n\
+    \tasrs r1, r1, #2\n\
+    \tldr r0, [r0, #4]\n\
+    \tcmp r0, r1\n\
+    \tble _02019162\n\
+    \tldr r2, _02019138 @ =0x03000E50\n\
+    \tadds r3, r2, #0\n\
+    \tadds r3, #0x24\n\
+    \tldrb r5, [r3]\n\
+    \tmovs r4, #0\n\
+    \tldrsb r4, [r3, r4]\n\
+    \tcmp r4, #0\n\
+    \tbeq _02019148\n\
+    \tldr r0, _0201913C @ =0x04000158\n\
+    \tldrh r1, [r0]\n\
+    \tmovs r0, #8\n\
+    \tands r0, r1\n\
+    \tlsls r0, r0, #0x10\n\
+    \tlsrs r1, r0, #0x10\n\
+    \tcmp r1, #0\n\
+    \tbeq _0201911E\n\
+    \tb _0201939A\n\
+    \t_0201911E:\n\
+    \tldr r3, _02019140 @ =0xFFFE0209\n\
+    \tcmp r4, #1\n\
+    \tbne _02019126\n\
+    \tsubs r3, #1\n\
+    \t_02019126:\n\
+    \tldr r0, _02019144 @ =0x04000154\n\
+    \tstr r3, [r0]\n\
+    \tadds r0, r2, #0\n\
+    \tadds r0, #0x25\n\
+    \tstrb r5, [r0]\n\
+    \tadds r0, #4\n\
+    \tstrb r1, [r0]\n\
+    \tstr r1, [r2, #0x18]\n\
+    \tb _0201939A\n\
+    \t.align 2, 0\n\
+    \t_02019138: .4byte 0x03000E50\n\
+    \t_0201913C: .4byte 0x04000158\n\
+    \t_02019140: .4byte 0xFFFE0209\n\
+    \t_02019144: .4byte 0x04000154\n\
+    \t_02019148:\n\
+    \tldr r1, _02019158 @ =0xFFFE0106\n\
+    \tldr r0, [sp, #4]\n\
+    \tcmp r0, r1\n\
+    \tbne _0201915C\n\
+    \tmovs r0, #1\n\
+    \tstrb r0, [r3]\n\
+    \tb _0201939A\n\
+    \t.align 2, 0\n\
+    \t_02019158: .4byte 0xFFFE0106\n\
+    \t_0201915C:\n\
+    \tmovs r0, #2\n\
+    \tstrb r0, [r3]\n\
+    \tb _0201939A\n\
+    \t_02019162:\n\
+    \tadds r3, r6, #0\n\
+    \tldr r2, [r3, #0xc]\n\
+    \tcmp r2, #0\n\
+    \tblt _020191D8\n\
+    \tldr r0, _02019194 @ =0x04000158\n\
+    \tldrh r1, [r0]\n\
+    \tmovs r0, #8\n\
+    \tands r0, r1\n\
+    \tlsls r0, r0, #0x10\n\
+    \tlsrs r5, r0, #0x10\n\
+    \tcmp r5, #0\n\
+    \tbeq _0201917C\n\
+    \tb _0201939A\n\
+    \t_0201917C:\n\
+    \tldr r0, [r3, #8]\n\
+    \tcmp r0, #0\n\
+    \tbge _02019184\n\
+    \tadds r0, #3\n\
+    \t_02019184:\n\
+    \tasrs r0, r0, #2\n\
+    \tldr r4, [r3, #4]\n\
+    \tcmp r4, r0\n\
+    \tbne _0201919C\n\
+    \tldr r0, _02019198 @ =0x04000154\n\
+    \tldr r1, [r3, #0x20]\n\
+    \tmvns r1, r1\n\
+    \tb _020191CA\n\
+    \t.align 2, 0\n\
+    \t_02019194: .4byte 0x04000158\n\
+    \t_02019198: .4byte 0x04000154\n\
+    \t_0201919C:\n\
+    \tmovs r0, #0xff\n\
+    \tands r2, r0\n\
+    \tcmp r2, #0xff\n\
+    \tbne _020191B4\n\
+    \tldr r1, _020191B0 @ =0x04000154\n\
+    \tldr r0, [r3, #0x1c]\n\
+    \tmvns r0, r0\n\
+    \tstr r0, [r1]\n\
+    \tstr r5, [r3, #0x1c]\n\
+    \tb _020192EE\n\
+    \t.align 2, 0\n\
+    \t_020191B0: .4byte 0x04000154\n\
+    \t_020191B4:\n\
+    \tldr r1, [r3]\n\
+    \tlsls r0, r4, #2\n\
+    \tadds r0, r0, r1\n\
+    \tldr r1, [r0]\n\
+    \tldr r0, [r3, #0x1c]\n\
+    \tadds r0, r0, r1\n\
+    \tstr r0, [r3, #0x1c]\n\
+    \tldr r0, [r3, #0x20]\n\
+    \tadds r0, r0, r1\n\
+    \tstr r0, [r3, #0x20]\n\
+    \tldr r0, _020191D4 @ =0x04000154\n\
+    \t_020191CA:\n\
+    \tstr r1, [r0]\n\
+    \tadds r0, r4, #1\n\
+    \tstr r0, [r3, #4]\n\
+    \tb _020192EE\n\
+    \t.align 2, 0\n\
+    \t_020191D4: .4byte 0x04000154\n\
+    \t_020191D8:\n\
+    \tadds r0, r6, #0\n\
+    \tadds r0, #0x26\n\
+    \tldrb r0, [r0]\n\
+    \tcmp r0, #1\n\
+    \tbeq _020191E4\n\
+    \tb _0201932C\n\
+    \t_020191E4:\n\
+    \tldr r0, _020191FC @ =0x04000158\n\
+    \tldrh r1, [r0]\n\
+    \tmovs r0, #8\n\
+    \tands r0, r1\n\
+    \tlsls r0, r0, #0x10\n\
+    \tlsrs r2, r0, #0x10\n\
+    \tcmp r2, #0\n\
+    \tbeq _020191F6\n\
+    \tb _0201939A\n\
+    \t_020191F6:\n\
+    \tldr r1, _02019200 @ =0x04000154\n\
+    \tldr r0, _02019204 @ =0xFFFE0204\n\
+    \tb _0201931A\n\
+    \t.align 2, 0\n\
+    \t_020191FC: .4byte 0x04000158\n\
+    \t_02019200: .4byte 0x04000154\n\
+    \t_02019204: .4byte 0xFFFE0204\n\
+    \t_02019208:\n\
+    \tldr r1, [r4, #8]\n\
+    \tcmp r1, #0\n\
+    \tbge _02019210\n\
+    \tadds r1, #3\n\
+    \t_02019210:\n\
+    \tasrs r1, r1, #2\n\
+    \tldr r0, [r4, #4]\n\
+    \tcmp r0, r1\n\
+    \tble _02019274\n\
+    \tldr r0, _02019240 @ =0x04000158\n\
+    \tldrh r1, [r0]\n\
+    \tmovs r0, #8\n\
+    \tands r0, r1\n\
+    \tcmp r0, #0\n\
+    \tbeq _02019226\n\
+    \tb _0201939A\n\
+    \t_02019226:\n\
+    \tldr r1, [r4, #0x20]\n\
+    \tmovs r0, #1\n\
+    \trsbs r0, r0, #0\n\
+    \tcmp r1, r0\n\
+    \tbne _0201924C\n\
+    \tldr r0, _02019244 @ =0x04000154\n\
+    \tldr r1, _02019248 @ =0xFFFE0208\n\
+    \tstr r1, [r0]\n\
+    \tadds r0, r4, #0\n\
+    \tadds r0, #0x25\n\
+    \tstrb r2, [r0]\n\
+    \tb _02019258\n\
+    \t.align 2, 0\n\
+    \t_02019240: .4byte 0x04000158\n\
+    \t_02019244: .4byte 0x04000154\n\
+    \t_02019248: .4byte 0xFFFE0208\n\
+    \t_0201924C:\n\
+    \tldr r0, _02019268 @ =0x04000154\n\
+    \tldr r1, _0201926C @ =0xFFFE0209\n\
+    \tstr r1, [r0]\n\
+    \tadds r0, r4, #0\n\
+    \tadds r0, #0x25\n\
+    \tstrb r7, [r0]\n\
+    \t_02019258:\n\
+    \tldr r1, _02019270 @ =0x03000E50\n\
+    \tadds r2, r1, #0\n\
+    \tadds r2, #0x29\n\
+    \tmovs r0, #0\n\
+    \tstrb r0, [r2]\n\
+    \tstr r0, [r1, #0x18]\n\
+    \tb _0201939A\n\
+    \t.align 2, 0\n\
+    \t_02019268: .4byte 0x04000154\n\
+    \t_0201926C: .4byte 0xFFFE0209\n\
+    \t_02019270: .4byte 0x03000E50\n\
+    \t_02019274:\n\
+    \tldr r0, [r4, #0xc]\n\
+    \tmovs r5, #1\n\
+    \trsbs r5, r5, #0\n\
+    \tcmp r0, r5\n\
+    \tble _020192FC\n\
+    \tadd r0, sp, #4\n\
+    \tbl sub_2018F9C\n\
+    \tadds r3, r0, #0\n\
+    \tldr r0, _020192B4 @ =0x04000158\n\
+    \tldrh r1, [r0]\n\
+    \tmovs r0, #8\n\
+    \tands r0, r1\n\
+    \tlsls r0, r0, #0x10\n\
+    \tlsrs r1, r0, #0x10\n\
+    \tcmp r1, #0\n\
+    \tbeq _02019298\n\
+    \tb _0201939A\n\
+    \t_02019298:\n\
+    \tldr r0, [r4, #8]\n\
+    \tcmp r0, #0\n\
+    \tbge _020192A0\n\
+    \tadds r0, #3\n\
+    \t_020192A0:\n\
+    \tasrs r0, r0, #2\n\
+    \tldr r2, [r4, #4]\n\
+    \tcmp r2, r0\n\
+    \tbne _020192B8\n\
+    \tldr r1, [r4]\n\
+    \tlsls r0, r2, #2\n\
+    \tadds r0, r0, r1\n\
+    \tldr r1, [sp, #4]\n\
+    \tstr r1, [r0]\n\
+    \tb _020192E2\n\
+    \t.align 2, 0\n\
+    \t_020192B4: .4byte 0x04000158\n\
+    \t_020192B8:\n\
+    \tldrb r0, [r4, #0xc]\n\
+    \tcmp r0, #0xff\n\
+    \tbne _020192D2\n\
+    \tldr r0, [r4, #0x1c]\n\
+    \tadds r0, r0, r3\n\
+    \tstr r0, [r4, #0x1c]\n\
+    \tcmp r0, r5\n\
+    \tbeq _020192CE\n\
+    \tadds r0, r4, #0\n\
+    \tadds r0, #0x25\n\
+    \tstrb r7, [r0]\n\
+    \t_020192CE:\n\
+    \tstr r1, [r4, #0x1c]\n\
+    \tb _020192EE\n\
+    \t_020192D2:\n\
+    \tldr r1, [r4]\n\
+    \tlsls r0, r2, #2\n\
+    \tadds r0, r0, r1\n\
+    \tldr r1, [sp, #4]\n\
+    \tstr r1, [r0]\n\
+    \tldr r0, [r4, #0x1c]\n\
+    \tadds r0, r0, r3\n\
+    \tstr r0, [r4, #0x1c]\n\
+    \t_020192E2:\n\
+    \tldr r0, [r4, #0x20]\n\
+    \tadds r0, r0, r3\n\
+    \tstr r0, [r4, #0x20]\n\
+    \tldr r0, [r4, #4]\n\
+    \tadds r0, #1\n\
+    \tstr r0, [r4, #4]\n\
+    \t_020192EE:\n\
+    \tldr r1, _020192F8 @ =0x03000E50\n\
+    \tldr r0, [r1, #0xc]\n\
+    \tadds r0, #1\n\
+    \tstr r0, [r1, #0xc]\n\
+    \tb _0201939A\n\
+    \t.align 2, 0\n\
+    \t_020192F8: .4byte 0x03000E50\n\
+    \t_020192FC:\n\
+    \tadds r0, r6, #0\n\
+    \tadds r0, #0x26\n\
+    \tldrb r0, [r0]\n\
+    \tcmp r0, #1\n\
+    \tbne _0201932C\n\
+    \tldr r0, _02019320 @ =0x04000158\n\
+    \tldrh r1, [r0]\n\
+    \tmovs r0, #8\n\
+    \tands r0, r1\n\
+    \tlsls r0, r0, #0x10\n\
+    \tlsrs r2, r0, #0x10\n\
+    \tcmp r2, #0\n\
+    \tbne _0201939A\n\
+    \tldr r1, _02019324 @ =0x04000154\n\
+    \tldr r0, _02019328 @ =0xFFFE0104\n\
+    \t_0201931A:\n\
+    \tstr r0, [r1]\n\
+    \tstr r2, [r6, #0xc]\n\
+    \tb _0201939A\n\
+    \t.align 2, 0\n\
+    \t_02019320: .4byte 0x04000158\n\
+    \t_02019324: .4byte 0x04000154\n\
+    \t_02019328: .4byte 0xFFFE0104\n\
+    \t_0201932C:\n\
+    \tldr r1, _02019334 @ =0x04000154\n\
+    \tldr r0, _02019338 @ =0xFFFE0205\n\
+    \tstr r0, [r1]\n\
+    \tb _0201939A\n\
+    \t.align 2, 0\n\
+    \t_02019334: .4byte 0x04000154\n\
+    \t_02019338: .4byte 0xFFFE0205\n\
+    \t_0201933C:\n\
+    \tldr r4, _02019378 @ =0x03000E50\n\
+    \tldr r1, [sp, #4]\n\
+    \tstr r1, [r4, #0x18]\n\
+    \tldr r0, _0201937C @ =0xFFFE0101\n\
+    \tcmp r1, r0\n\
+    \tblo _0201939A\n\
+    \tadds r0, #1\n\
+    \tcmp r1, r0\n\
+    \tbls _02019354\n\
+    \tldr r0, _02019380 @ =0xFFFE0202\n\
+    \tcmp r1, r0\n\
+    \tbne _0201939A\n\
+    \t_02019354:\n\
+    \tmovs r0, #0\n\
+    \tstr r0, [sp]\n\
+    \tldr r2, _02019384 @ =0x01000010\n\
+    \tmov r0, sp\n\
+    \tadds r1, r4, #0\n\
+    \tbl CpuFastSet\n\
+    \tmovs r0, #1\n\
+    \trsbs r0, r0, #0\n\
+    \tstr r0, [r4, #0xc]\n\
+    \tldr r0, [sp, #4]\n\
+    \tstr r0, [r4, #0x18]\n\
+    \tadds r1, r4, #0\n\
+    \tadds r1, #0x29\n\
+    \tmovs r0, #1\n\
+    \tstrb r0, [r1]\n\
+    \tb _0201939A\n\
+    \t.align 2, 0\n\
+    \t_02019378: .4byte 0x03000E50\n\
+    \t_0201937C: .4byte 0xFFFE0101\n\
+    \t_02019380: .4byte 0xFFFE0202\n\
+    \t_02019384: .4byte 0x01000010\n\
+    \t_02019388:\n\
+    \tadd r0, sp, #4\n\
+    \tbl sub_2018F9C\n\
+    \tldr r1, _020193B4 @ =0x0201B0B8\n\
+    \tldr r1, [r1]\n\
+    \tcmp r0, r1\n\
+    \tbne _0201939A\n\
+    \tmovs r0, #1\n\
+    \tstrb r0, [r5]\n\
+    \t_0201939A:\n\
+    \tldr r0, _020193B8 @ =0x04000140\n\
+    \tmov r1, r8\n\
+    \tstrh r1, [r0]\n\
+    \tldr r0, _020193BC @ =0x03000E50\n\
+    \tadds r0, #0x2a\n\
+    \tmovs r1, #0\n\
+    \tstrb r1, [r0]\n\
+    \tadd sp, #8\n\
+    \tpop {r3}\n\
+    \tmov r8, r3\n\
+    \tpop {r4, r5, r6, r7}\n\
+    \tpop {r0}\n\
+    \tbx r0\n\
+    \t.align 2, 0\n\
+    \t_020193B4: .4byte 0x0201B0B8\n\
+    \t_020193B8: .4byte 0x04000140\n\
+    \t_020193BC: .4byte 0x03000E50");
+}
+
+void sub_20193C0(void) {
+    u32 saveIME;
+    u32 arg;
+    u32 recv;
+
+    saveIME =  REG_IME;
+    REG_IME = 0;
+    
+    REG_RCNT = 0x8000;
+    REG_RCNT = 0xC000;
+    
+    REG_JOYSTAT = 0;
+    
+    recv = REG_JOY_RECV;
+    REG_JOY_TRANS = 0;
+
+    REG_JOYCNT = 0x47;
+    
+    REG_IF = 0x80;
+
+    CpuFastFill(0, (void *)0x3000E50, 0x40);
+
+    REG_IME = saveIME;
+}
+
+int sub_2019428(char arg0) {
+    
+    int ret = FALSE; 
+    
+    if(g03000E50.unk2A < 11){
+        REG_IME = 0;
+        g03000E50.unk2A++;
+        REG_IME = 1;
+    }
+    else if(arg0 != 0){
+        sub_20193C0();
+        ret = TRUE;
+    }
+    else{
+        ret = TRUE;
+    }
+
+    return ret;
+}
+
+void sub_2019468(void) {
+    CpuFastFill(0, (void*)0x03000E90, 1155);
+}
+
