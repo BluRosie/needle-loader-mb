@@ -31,6 +31,8 @@
 
 #define NELEMS(arr) (sizeof(arr)/sizeof(*(arr)))
 
+#define FORCE_REGISTER(var, reg) register var asm(#reg)
+
 
 #define min(a, b) ((a) < (b) ? (a) : (b))
 #define max(a, b) ((a) >= (b) ? (a) : (b))
@@ -158,6 +160,21 @@ typedef struct unk_struct_03000E50 {
     u8 unk2A;
 } unk_struct_03000E50;
 
+typedef struct unk_struct_3000E90{
+    int unk_0;
+    int unk_4;
+    int unk_8;
+    int unk_C;
+    u8 unk_10[0x4];
+    int unk_14;
+    u8 unk_18[0x14];
+    int unk_2C;
+    int unk_30;
+    u8 unk_34[0x23];
+    u8 unk_57;
+    u8 unk_58[0x8];
+} unk_struct_3000E90;
+
 
 #define DmaSetSrc(dmaNum, src)     \
 {                                                 \
@@ -209,6 +226,7 @@ typedef struct unk_struct_03000E50 {
 
 
 extern u8* g0201B3A4;
+extern int* g0201B0D0[];
 extern u8* g0201D3A4;
 extern u32 g0203b000;
 
@@ -227,5 +245,6 @@ extern GLOBAL_STRUCTURE gGlobalStructure;
 extern u64 gUnk_30008D0[0x80];
 extern unk_struct_03000E30 gUnk_3000E30;
 extern unk_struct_03000E50 g03000E50;
+extern unk_struct_3000E90 g03000E90[12];
 
 #endif

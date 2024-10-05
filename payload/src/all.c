@@ -13,10 +13,12 @@ void sub_20189EC(void);
 void sub_2018F44(void);
 void sub_2018FB8(void);
 void sub_2019468(void);
-void sub_2019498(u32, u32, u32, u32);
+void* sub_2019498(char idx, int arg1, int arg2, int arg3);
+int sub_2019550(char);
 void sub_2019A84(void *, u32, u32);
 void sub_2019A88(u32);
 void sub_02019A8C(s32);
+void sub_2019A90(void*);
 u32 sub_2019AC8(s32 r0, s16 r1);
 void sub_2019B60(void *, u32, u32);
 void nullsub_2(void);
@@ -1595,3 +1597,61 @@ void sub_2019468(void) {
     CpuFastFill(0, (void*)0x03000E90, 1155);
 }
 
+void sub_2019488(unk_struct_3000E90* arg0){
+    arg0->unk_57 = 0;
+    arg0->unk_8 = 0;
+    arg0->unk_C = 0;
+}
+
+void* sub_2019498(char idx, int arg1, int arg2, int arg3) {
+    unk_struct_3000E90* _E90Ptr = NULL;
+    int _E90Idx = sub_2019550(0);
+
+    if (_E90Idx >= 0) {
+        int* ptr = g0201B0D0[idx];
+        CpuFastFill(0, &g03000E90[_E90Idx], 0x01000060);
+
+        g03000E90[_E90Idx].unk_0 = ptr[0];
+        g03000E90[_E90Idx].unk_4 = ptr[1];
+        g03000E90[_E90Idx].unk_8 = ptr[2];
+        g03000E90[_E90Idx].unk_C = ptr[3];
+
+        g03000E90[_E90Idx].unk_57 = idx;
+        g03000E90[_E90Idx].unk_2C = arg1;
+        g03000E90[_E90Idx].unk_30 = arg2;
+        g03000E90[_E90Idx].unk_14 = arg3;
+
+        {
+            //todo: fakeless match
+            FORCE_REGISTER(int temp, r1);
+            temp = g03000E90[_E90Idx].unk_0;
+            if (temp != 0) {
+                sub_2019A90(&g03000E90[_E90Idx]);
+            }
+        }
+
+        _E90Ptr = &g03000E90[_E90Idx];
+    }
+
+    return _E90Ptr;
+}
+
+
+int sub_2019550(char arg0) {
+    int i;
+    int ret;
+
+    for (i = 0; i < 12; i++) {
+        if (g03000E90[i].unk_57 == arg0) {
+            break;
+        }
+    }
+
+    if (i > 11) {
+        ret = -1;
+    } else {
+        ret = i;
+    }
+
+    return ret;
+}
