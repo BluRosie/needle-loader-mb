@@ -523,8 +523,8 @@ s16 sub_20187C4(s16 r0, s16 r1)
 // pretty sure this is unused anyway
 u32 Random(GLOBAL_STRUCTURE *r2)
 {
-    r2->rngValue = (r2->rngValue * 1103515245) + ({r2->unk_85B + 12345;}); // fakematch
-    return (r2->rngValue << 1) >> 17;
+    r2->rngValue = (r2->rngValue * 1103515245) + 12345 + r2->unk_85B;
+    return (u32)(r2->rngValue / 65536) % 32768;
 }
 
 void SeedRng(GLOBAL_STRUCTURE *r0, u32 seed)
@@ -1604,6 +1604,8 @@ void sub_2019488(unk_struct_3000E90* arg0){
 }
 
 void* sub_2019498(char idx, int arg1, int arg2, int arg3) {
+    //int temp;
+    FORCE_REGISTER(int temp, r1); // fakematch
     unk_struct_3000E90* _E90Ptr = NULL;
     int _E90Idx = sub_2019550(0);
 
@@ -1621,13 +1623,9 @@ void* sub_2019498(char idx, int arg1, int arg2, int arg3) {
         g03000E90[_E90Idx].unk_30 = arg2;
         g03000E90[_E90Idx].unk_14 = arg3;
 
-        {
-            //todo: fakeless match
-            FORCE_REGISTER(int temp, r1);
-            temp = g03000E90[_E90Idx].unk_0;
-            if (temp != 0) {
-                sub_2019A90(&g03000E90[_E90Idx]);
-            }
+        temp = g03000E90[_E90Idx].unk_0;
+        if (temp != 0) {
+            sub_2019A90(&g03000E90[_E90Idx]);
         }
 
         _E90Ptr = &g03000E90[_E90Idx];
